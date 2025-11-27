@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/auth/login/page": "/auth/login",
+  "/dashboard/analytics/page": "/dashboard/analytics",
+  "/dashboard/logout/page": "/dashboard/logout",
+  "/dashboard/page": "/dashboard",
+  "/dashboard/settings/page": "/dashboard/settings",
+  "/dashboard/users/page": "/dashboard/users",
+  "/dashboard/users/permission/page": "/dashboard/users/permission",
+  "/dashboard/users/role/page": "/dashboard/users/role",
+  "/dashboard/users/user/page": "/dashboard/users/user"
+}

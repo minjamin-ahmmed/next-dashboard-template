@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../app/auth/layout.tsx"],"sourcesContent":["import type React from \"react\"\nexport default function AuthLayout({ children }: { children: React.ReactNode }) {\n  return <>{children}</>\n}\n"],"names":[],"mappings":"uDACe,SAAS,EAAW,UAAE,CAAQ,CAAiC,EAC5E,MAAO,CAAA,EAAA,EAAA,GAAA,EAAA,EAAA,QAAA,CAAA,UAAG,GACZ"}

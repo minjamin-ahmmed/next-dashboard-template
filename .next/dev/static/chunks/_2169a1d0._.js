@@ -740,10 +740,11 @@ function DataTable({ columns, data, searchKey = "name", searchPlaceholder = "Sea
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden",
+                className: "rounded-lg border bg-card text-card-foreground shadow-sm overflow-x-scroll",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "overflow-x-auto",
+                    className: "min-w-full",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Table"], {
+                        className: "w-full",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHeader"], {
                                 children: table.getHeaderGroups().map((headerGroup)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableRow"], {
@@ -1057,7 +1058,7 @@ function PermissionsPage() {
                                         children: row.original.name
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 64,
+                                        lineNumber: 94,
                                         columnNumber: 14
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1065,13 +1066,13 @@ function PermissionsPage() {
                                         children: row.original.description
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 65,
+                                        lineNumber: 95,
                                         columnNumber: 14
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                lineNumber: 63,
+                                lineNumber: 93,
                                 columnNumber: 12
                             }, this)
                     }["PermissionsPage.useMemo[columns]"]
@@ -1085,7 +1086,7 @@ function PermissionsPage() {
                                 children: row.original.module
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                lineNumber: 72,
+                                lineNumber: 102,
                                 columnNumber: 29
                             }, this)
                     }["PermissionsPage.useMemo[columns]"]
@@ -1101,20 +1102,20 @@ function PermissionsPage() {
                                         className: "h-4 w-4 text-muted-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 109,
                                         columnNumber: 14
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: row.original.rolesAssigned
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 80,
+                                        lineNumber: 110,
                                         columnNumber: 14
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                lineNumber: 78,
+                                lineNumber: 108,
                                 columnNumber: 12
                             }, this)
                     }["PermissionsPage.useMemo[columns]"]
@@ -1130,14 +1131,14 @@ function PermissionsPage() {
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 89,
+                                        lineNumber: 119,
                                         columnNumber: 14
                                     }, this),
                                     row.original.updatedAt
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                lineNumber: 88,
+                                lineNumber: 118,
                                 columnNumber: 12
                             }, this)
                     }["PermissionsPage.useMemo[columns]"]
@@ -1158,7 +1159,7 @@ function PermissionsPage() {
                                     children: "Permissions"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 103,
+                                    lineNumber: 133,
                                     columnNumber: 14
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1166,13 +1167,13 @@ function PermissionsPage() {
                                     children: "Control access to different areas and actions within the platform."
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 104,
+                                    lineNumber: 134,
                                     columnNumber: 14
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                            lineNumber: 102,
+                            lineNumber: 132,
                             columnNumber: 12
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1183,25 +1184,25 @@ function PermissionsPage() {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 137,
                                     columnNumber: 14
                                 }, this),
                                 "Add New Permission"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                            lineNumber: 106,
+                            lineNumber: 136,
                             columnNumber: 12
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                    lineNumber: 101,
+                    lineNumber: 131,
                     columnNumber: 10
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                lineNumber: 100,
+                lineNumber: 130,
                 columnNumber: 8
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1218,12 +1219,12 @@ function PermissionsPage() {
                                         className: "h-6 w-6 text-primary"
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 117,
+                                        lineNumber: 147,
                                         columnNumber: 16
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 146,
                                     columnNumber: 14
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1233,7 +1234,7 @@ function PermissionsPage() {
                                             children: "Total Permissions"
                                         }, void 0, false, {
                                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 150,
                                             columnNumber: 16
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1241,24 +1242,24 @@ function PermissionsPage() {
                                             children: mockPermissions.length
                                         }, void 0, false, {
                                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                            lineNumber: 121,
+                                            lineNumber: 151,
                                             columnNumber: 16
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 149,
                                     columnNumber: 14
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                            lineNumber: 115,
+                            lineNumber: 145,
                             columnNumber: 12
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                        lineNumber: 114,
+                        lineNumber: 144,
                         columnNumber: 10
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$animate$2f$animate$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimateCard"], {
@@ -1272,12 +1273,12 @@ function PermissionsPage() {
                                         className: "h-6 w-6 text-primary"
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 159,
                                         columnNumber: 16
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 128,
+                                    lineNumber: 158,
                                     columnNumber: 14
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1287,7 +1288,7 @@ function PermissionsPage() {
                                             children: "Modules Covered"
                                         }, void 0, false, {
                                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                            lineNumber: 132,
+                                            lineNumber: 162,
                                             columnNumber: 16
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1295,30 +1296,30 @@ function PermissionsPage() {
                                             children: new Set(mockPermissions.map((p)=>p.module)).size
                                         }, void 0, false, {
                                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                            lineNumber: 133,
+                                            lineNumber: 163,
                                             columnNumber: 16
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                                    lineNumber: 131,
+                                    lineNumber: 161,
                                     columnNumber: 14
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                            lineNumber: 127,
+                            lineNumber: 157,
                             columnNumber: 12
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                        lineNumber: 126,
+                        lineNumber: 156,
                         columnNumber: 10
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                lineNumber: 113,
+                lineNumber: 143,
                 columnNumber: 8
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$animate$2f$animate$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimateCard"], {
@@ -1328,12 +1329,12 @@ function PermissionsPage() {
                             children: "Permission Directory"
                         }, void 0, false, {
                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                            lineNumber: 141,
+                            lineNumber: 171,
                             columnNumber: 12
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                        lineNumber: 140,
+                        lineNumber: 170,
                         columnNumber: 10
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$animate$2f$animate$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimateCardContent"], {
@@ -1354,24 +1355,24 @@ function PermissionsPage() {
                             ]
                         }, void 0, false, {
                             fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                            lineNumber: 144,
+                            lineNumber: 174,
                             columnNumber: 12
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                        lineNumber: 143,
+                        lineNumber: 173,
                         columnNumber: 10
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboard/users/permission/page.tsx",
-                lineNumber: 139,
+                lineNumber: 169,
                 columnNumber: 8
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/dashboard/users/permission/page.tsx",
-        lineNumber: 99,
+        lineNumber: 129,
         columnNumber: 6
     }, this);
 }

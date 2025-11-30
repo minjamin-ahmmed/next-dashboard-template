@@ -1,191 +1,98 @@
 'use client'
 
-// Inspired by react-hot-toast library
-import * as React from 'react'
+import type React from 'react'
+import toast from 'react-hot-toast'
 
-import type { ToastActionElement, ToastProps } from '@/components/ui/toast'
+export type ToastType = 'success' | 'error' | 'loading' | 'default'
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
-
-type ToasterToast = ToastProps & {
-  id: string
-  title?: React.ReactNode
-  description?: React.ReactNode
-  action?: ToastActionElement
+interface ToastOptions {
+  title?: string
+  description?: string
+  variant?: 'default' | 'destructive'
+  duration?: number
 }
 
-const actionTypes = {
-  ADD_TOAST: 'ADD_TOAST',
-  UPDATE_TOAST: 'UPDATE_TOAST',
-  DISMISS_TOAST: 'DISMISS_TOAST',
-  REMOVE_TOAST: 'REMOVE_TOAST',
-} as const
-
-let count = 0
-
-function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER
-  return count.toString()
-}
-
-type ActionType = typeof actionTypes
-
-type Action =
-  | {
-      type: ActionType['ADD_TOAST']
-      toast: ToasterToast
-    }
-  | {
-      type: ActionType['UPDATE_TOAST']
-      toast: Partial<ToasterToast>
-    }
-  | {
-      type: ActionType['DISMISS_TOAST']
-      toastId?: ToasterToast['id']
-    }
-  | {
-      type: ActionType['REMOVE_TOAST']
-      toastId?: ToasterToast['id']
-    }
-
-interface State {
-  toasts: ToasterToast[]
-}
-
-const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
-
-const addToRemoveQueue = (toastId: string) => {
-  if (toastTimeouts.has(toastId)) {
-    return
-  }
-
-  const timeout = setTimeout(() => {
-    toastTimeouts.delete(toastId)
-    dispatch({
-      type: 'REMOVE_TOAST',
-      toastId: toastId,
-    })
-  }, TOAST_REMOVE_DELAY)
-
-  toastTimeouts.set(toastId, timeout)
-}
-
-export const reducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'ADD_TOAST':
-      return {
-        ...state,
-        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
-      }
-
-    case 'UPDATE_TOAST':
-      return {
-        ...state,
-        toasts: state.toasts.map((t) =>
-          t.id === action.toast.id ? { ...t, ...action.toast } : t,
-        ),
-      }
-
-    case 'DISMISS_TOAST': {
-      const { toastId } = action
-
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
-      if (toastId) {
-        addToRemoveQueue(toastId)
-      } else {
-        state.toasts.forEach((toast) => {
-          addToRemoveQueue(toast.id)
-        })
-      }
-
-      return {
-        ...state,
-        toasts: state.toasts.map((t) =>
-          t.id === toastId || toastId === undefined
-            ? {
-                ...t,
-                open: false,
-              }
-            : t,
-        ),
-      }
-    }
-    case 'REMOVE_TOAST':
-      if (action.toastId === undefined) {
-        return {
-          ...state,
-          toasts: [],
-        }
-      }
-      return {
-        ...state,
-        toasts: state.toasts.filter((t) => t.id !== action.toastId),
-      }
-  }
-}
-
-const listeners: Array<(state: State) => void> = []
-
-let memoryState: State = { toasts: [] }
-
-function dispatch(action: Action) {
-  memoryState = reducer(memoryState, action)
-  listeners.forEach((listener) => {
-    listener(memoryState)
-  })
-}
-
-type Toast = Omit<ToasterToast, 'id'>
-
-function toast({ ...props }: Toast) {
-  const id = genId()
-
-  const update = (props: ToasterToast) =>
-    dispatch({
-      type: 'UPDATE_TOAST',
-      toast: { ...props, id },
-    })
-  const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id })
-
-  dispatch({
-    type: 'ADD_TOAST',
-    toast: {
-      ...props,
-      id,
-      open: true,
-      onOpenChange: (open) => {
-        if (!open) dismiss()
+// Wrapper function to match the existing API
+export function useToast(): {
+  toast: (options: ToastOptions) => string
+  dismiss: (toastId?: string) => void
+} {
+  const showToast = ({ title, description, variant, duration }: ToastOptions): string => {
+    // Format message with title and description
+    const message = description 
+      ? `${title || ''}\n${description}`.trim()
+      : title || description || ''
+    
+    const toastOptions = {
+      duration: duration || (variant === 'destructive' ? 4000 : 3000),
+      style: {
+        padding: '12px 16px',
+        borderRadius: '8px',
+        background: variant === 'destructive' ? '#ef4444' : '#10b981',
+        backgroundColor: variant === 'destructive' ? '#ef4444' : '#10b981',
+        color: '#ffffff',
+        border: 'none',
+        boxShadow: variant === 'destructive'
+          ? '0 4px 12px rgba(239, 68, 68, 0.3)'
+          : '0 4px 12px rgba(16, 185, 129, 0.3)',
+        maxWidth: '400px',
+        minWidth: '300px',
+        whiteSpace: 'pre-line' as const,
+        lineHeight: '1.5',
+        opacity: '1',
+      } as React.CSSProperties,
+      iconTheme: {
+        primary: '#ffffff',
+        secondary: variant === 'destructive' ? '#ef4444' : '#10b981',
       },
-    },
-  })
-
-  return {
-    id: id,
-    dismiss,
-    update,
-  }
-}
-
-function useToast() {
-  const [state, setState] = React.useState<State>(memoryState)
-
-  React.useEffect(() => {
-    listeners.push(setState)
-    return () => {
-      const index = listeners.indexOf(setState)
-      if (index > -1) {
-        listeners.splice(index, 1)
-      }
+      className: variant === 'destructive' ? 'error-toast' : 'success-toast',
     }
-  }, [state])
+    
+    if (variant === 'destructive') {
+      return toast.error(message, toastOptions)
+    }
+    
+    return toast.success(message, toastOptions)
+  }
 
   return {
-    ...state,
-    toast,
-    dismiss: (toastId?: string) => dispatch({ type: 'DISMISS_TOAST', toastId }),
+    toast: showToast,
+    dismiss: toast.dismiss,
   }
 }
 
-export { useToast, toast }
+// Direct toast function for convenience
+export const toastDirect = {
+  success: (message: string, options?: { duration?: number }) => 
+    toast.success(message, {
+      duration: options?.duration || 3000,
+      style: {
+        borderLeft: '4px solid hsl(142, 76%, 36%)',
+      },
+      ...options,
+    }),
+  error: (message: string, options?: { duration?: number }) => 
+    toast.error(message, {
+      duration: options?.duration || 4000,
+      style: {
+        borderLeft: '4px solid hsl(0, 84%, 60%)',
+      },
+      ...options,
+    }),
+  loading: (message: string, options?: { duration?: number }) => 
+    toast.loading(message, {
+      duration: options?.duration || Infinity,
+      style: {
+        borderLeft: '4px solid hsl(var(--primary))',
+      },
+      ...options,
+    }),
+  default: (message: string, options?: { duration?: number }) => 
+    toast(message, {
+      duration: options?.duration || 4000,
+      ...options,
+    }),
+}
+
+// Export toast for direct use
+export { toast }

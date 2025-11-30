@@ -1,19 +1,21 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Montserrat } from "next/font/google"
+import { Lato } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { AuthProvider } from "@/providers/auth-provider"
 import { Toaster } from "@/components/ui/toaster"
 
-// const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat" })
+const lato = Lato({ 
+  subsets: ["latin"], 
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-lato" 
+})
 
 export const metadata: Metadata = {
   title: "Dashboard Pro - Modern Analytics Platform",
   description:
     "A production-grade dashboard built with Next.js, featuring real-time analytics, user management, and beautiful animations.",
-  generator: "v0.app",
   icons: {
     icon: [
       {
@@ -46,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.variable} font-sans antialiased`}>
+      <body className={`${lato.variable} font-sans antialiased`}>
         <AuthProvider>
           {children}
           <Toaster />

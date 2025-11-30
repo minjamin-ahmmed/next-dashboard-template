@@ -9,5 +9,6 @@
   "/dashboard/users/page": "/dashboard/users",
   "/dashboard/users/permission/page": "/dashboard/users/permission",
   "/dashboard/users/role/page": "/dashboard/users/role",
-  "/dashboard/users/user/page": "/dashboard/users/user"
+  "/dashboard/users/user/page": "/dashboard/users/user",
+  "/dashboard/users/user/update/page": "/dashboard/users/user/update"
 }

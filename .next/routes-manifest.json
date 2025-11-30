@@ -86,6 +86,12 @@
       "regex": "^/dashboard/users/user(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/dashboard/users/user(?:/)?$"
+    },
+    {
+      "page": "/dashboard/users/user/update",
+      "regex": "^/dashboard/users/user/update(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/users/user/update(?:/)?$"
     }
   ],
   "dataRoutes": [],

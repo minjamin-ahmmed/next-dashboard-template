@@ -1,13 +1,43 @@
- "use client"
- 
- import { useMemo } from "react"
- import { type ColumnDef } from "@tanstack/react-table"
- import { Shield, ListChecks, Users, PlusCircle, Calendar } from "lucide-react"
- import { AnimateCard, AnimateCardHeader, AnimateCardTitle, AnimateCardContent } from "@/components/animate/animate-card"
- import { FadeIn } from "@/components/animate/page-transition"
- import { DataTable } from "@/components/data-table"
- import { Badge } from "@/components/ui/badge"
- import { Button } from "@/components/ui/button"
+"use client"
+
+import { useState, useMemo } from "react"
+import { type ColumnDef } from "@tanstack/react-table"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Shield, ListChecks, Users, PlusCircle, Calendar } from "lucide-react"
+import { AnimateCard, AnimateCardHeader, AnimateCardTitle, AnimateCardContent } from "@/components/animate/animate-card"
+import { AnimateButton } from "@/components/animate/animate-button"
+import { FadeIn } from "@/components/animate/page-transition"
+import { DataTable } from "@/components/data-table"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
  
  interface Permission {
    id: string
@@ -18,42 +48,83 @@
    updatedAt: string
  }
  
- const mockPermissions: Permission[] = [
-   {
-     id: "perm-1",
-     name: "Manage Users",
-     description: "Create, update, and delete user accounts",
-     module: "Users",
-     rolesAssigned: 3,
-     updatedAt: "Mar 05, 2024",
-   },
-   {
-     id: "perm-2",
-     name: "View Analytics",
-     description: "Access analytics dashboards and reports",
-     module: "Analytics",
-     rolesAssigned: 4,
-     updatedAt: "Feb 18, 2024",
-   },
-   {
-     id: "perm-3",
-     name: "Manage Billing",
-     description: "Handle invoices, subscriptions, and refunds",
-     module: "Billing",
-     rolesAssigned: 2,
-     updatedAt: "Mar 20, 2024",
-   },
-   {
-     id: "perm-4",
-     name: "Edit Content",
-     description: "Create and update knowledge base content",
-     module: "Content",
-     rolesAssigned: 5,
-     updatedAt: "Jan 30, 2024",
-   },
- ]
- 
- export default function PermissionsPage() {
+const mockPermissions: Permission[] = [
+  {
+    id: "perm-1",
+    name: "Manage Users",
+    description: "Create, update, and delete user accounts",
+    module: "Users",
+    rolesAssigned: 3,
+    updatedAt: "Mar 05, 2024",
+  },
+  {
+    id: "perm-2",
+    name: "View Analytics",
+    description: "Access analytics dashboards and reports",
+    module: "Analytics",
+    rolesAssigned: 4,
+    updatedAt: "Feb 18, 2024",
+  },
+  {
+    id: "perm-3",
+    name: "Manage Billing",
+    description: "Handle invoices, subscriptions, and refunds",
+    module: "Billing",
+    rolesAssigned: 2,
+    updatedAt: "Mar 20, 2024",
+  },
+  {
+    id: "perm-4",
+    name: "Edit Content",
+    description: "Create and update knowledge base content",
+    module: "Content",
+    rolesAssigned: 5,
+    updatedAt: "Jan 30, 2024",
+  },
+]
+
+const availableModules = ["Users", "Analytics", "Billing", "Content", "Projects", "Tasks", "Reports", "Tickets", "Knowledge Base", "Dashboard", "Settings"]
+
+const formSchema = z.object({
+  name: z.string().min(2, "Permission name must be at least 2 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  module: z.string().min(1, "Please select a module"),
+})
+
+type FormValues = z.infer<typeof formSchema>
+
+export default function PermissionsPage() {
+  const [permissions, setPermissions] = useState(mockPermissions)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const { toast } = useToast()
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      module: "",
+    },
+  })
+
+  const onSubmit = (values: FormValues) => {
+    const newPermission: Permission = {
+      id: `perm-${crypto.randomUUID()}`,
+      name: values.name,
+      description: values.description,
+      module: values.module,
+      rolesAssigned: 0,
+      updatedAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    }
+
+    setPermissions((prev) => [newPermission, ...prev])
+    setIsDialogOpen(false)
+    form.reset()
+    toast({
+      title: "Permission created successfully",
+      description: `${values.name} permission has been created.`,
+    })
+  }
    const columns = useMemo<ColumnDef<Permission>[]>(
      () => [
        {
@@ -103,14 +174,103 @@
              <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Permissions</h1>
              <p className="text-muted-foreground">Control access to different areas and actions within the platform.</p>
            </div>
-           <Button size="lg" className="gap-2">
-             <PlusCircle className="h-4 w-4" />
-             Add New Permission
-           </Button>
-         </div>
-       </FadeIn>
- 
-       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <AnimateButton leftIcon={<PlusCircle className="h-4 w-4" />} onClick={() => setIsDialogOpen(true)}>
+            Add New Permission
+          </AnimateButton>
+        </div>
+      </FadeIn>
+
+      <Dialog
+        open={isDialogOpen}
+        onOpenChange={(open) => {
+          setIsDialogOpen(open)
+          if (!open) {
+            form.reset()
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Permission</DialogTitle>
+            <DialogDescription>Create a new permission to control access to specific features.</DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Permission Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Manage Users" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Describe what this permission allows users to do..."
+                        rows={3}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="module"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Module</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a module" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {availableModules.map((module) => (
+                          <SelectItem key={module} value={module}>
+                            {module}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setIsDialogOpen(false)
+                    form.reset()
+                  }}
+                >
+                  Cancel
+                </Button>
+                <AnimateButton type="submit" isLoading={form.formState.isSubmitting}>
+                  Create Permission
+                </AnimateButton>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
          <AnimateCard hover={false}>
            <AnimateCardContent className="flex items-center gap-4 p-6">
              <div className="rounded-full bg-primary/10 p-3">
@@ -118,7 +278,7 @@
              </div>
              <div>
                <p className="text-sm text-muted-foreground">Total Permissions</p>
-               <p className="text-2xl font-semibold">{mockPermissions.length}</p>
+               <p className="text-2xl font-semibold">{permissions.length}</p>
              </div>
            </AnimateCardContent>
          </AnimateCard>
@@ -130,7 +290,7 @@
              </div>
              <div>
                <p className="text-sm text-muted-foreground">Modules Covered</p>
-               <p className="text-2xl font-semibold">{new Set(mockPermissions.map((p) => p.module)).size}</p>
+               <p className="text-2xl font-semibold">{new Set(permissions.map((p) => p.module)).size}</p>
              </div>
            </AnimateCardContent>
          </AnimateCard>
@@ -141,22 +301,22 @@
            <AnimateCardTitle>Permission Directory</AnimateCardTitle>
          </AnimateCardHeader>
          <AnimateCardContent>
-           <DataTable
-             columns={columns}
-             data={mockPermissions}
-             searchKey="name"
-             searchPlaceholder="Search permissions..."
-             filterOptions={[
-               {
-                 key: "module",
-                 label: "Module",
-                 options: Array.from(new Set(mockPermissions.map((p) => p.module))).map((module) => ({
-                   label: module,
-                   value: module,
-                 })),
-               },
-             ]}
-           />
+          <DataTable
+            columns={columns}
+            data={permissions}
+            searchKey="name"
+            searchPlaceholder="Search permissions..."
+            filterOptions={[
+              {
+                key: "module",
+                label: "Module",
+                options: Array.from(new Set(permissions.map((p) => p.module))).map((module) => ({
+                  label: module,
+                  value: module,
+                })),
+              },
+            ]}
+          />
          </AnimateCardContent>
        </AnimateCard>
      </div>

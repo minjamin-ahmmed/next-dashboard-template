@@ -99,7 +99,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "D:\\sheefat\\dashboard-with-next-js",
+    "outputFileTracingRoot": "d:\\sheefat\\dashboard-with-next-js",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -289,11 +289,11 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.mjs",
     "turbopack": {
-      "root": "D:\\sheefat\\dashboard-with-next-js"
+      "root": "d:\\sheefat\\dashboard-with-next-js"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "D:\\sheefat\\dashboard-with-next-js",
+  "appDir": "d:\\sheefat\\dashboard-with-next-js",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

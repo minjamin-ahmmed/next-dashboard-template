@@ -3,6 +3,9 @@
 import { useState, useMemo, useCallback } from "react"
 import { type ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal, Mail, Shield, UserCog, Trash2, Plus } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 import { AnimateCard, AnimateCardHeader, AnimateCardTitle, AnimateCardContent } from "@/components/animate/animate-card"
 import { AnimateButton } from "@/components/animate/animate-button"
 import { FadeIn } from "@/components/animate/page-transition"
@@ -15,14 +18,40 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
 import { DataTable } from "@/components/data-table"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import Link from "next/link"
 
 interface User {
   id: string
   name: string
   email: string
-  role: "admin" | "user" | "viewer"
+  role: "super-admin" | "admin" | "editor" | "user" | "viewer"
   status: "active" | "inactive" | "pending"
   avatar: string
   joinedAt: string
@@ -77,8 +106,10 @@ const mockUsers: User[] = [
 ]
 
 const roleColors = {
+  "super-admin": "bg-purple-500/10 text-purple-600",
   admin: "bg-primary/10 text-primary",
-  user: "bg-blue-500/10 text-blue-600",
+  editor: "bg-blue-500/10 text-blue-600",
+  user: "bg-green-500/10 text-green-600",
   viewer: "bg-gray-500/10 text-gray-600",
 }
 const statusColors = {
@@ -87,13 +118,60 @@ const statusColors = {
   pending: "bg-yellow-500/10 text-yellow-600",
 }
 
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  role: z.enum(["super-admin", "admin", "editor", "user", "viewer"], {
+    required_error: "Please select a user type",
+  }),
+})
+
+type FormValues = z.infer<typeof formSchema>
+
+
+
 export default function UsersPage() {
   const [users, setUsers] = useState(mockUsers)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const { toast } = useToast()
+
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      role: "user",
+    },
+  })
 
   const handleDeleteUser = useCallback(
     (userId: string) => setUsers((prev) => prev.filter((u) => u.id !== userId)),
     [],
   )
+
+  const onSubmit = (values: FormValues) => {
+    const newUser: User = {
+      id: crypto.randomUUID(),
+      name: values.name,
+      email: values.email,
+      role: values.role,
+      status: "active",
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${values.email}`,
+      joinedAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    }
+
+    setUsers((prev) => [newUser, ...prev])
+    setIsDialogOpen(false)
+    form.reset()
+    toast({
+      title: "User added successfully",
+      description: `${values.name} has been added to the team.`,
+      variant: "default",
+    })
+  }
 
   const columns = useMemo<ColumnDef<User>[]>(
     () => [
@@ -183,15 +261,13 @@ export default function UsersPage() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <UserCog className="mr-2 h-4 w-4" />
-                  Edit User
+                <DropdownMenuItem asChild>
+                  <Link href={`/dashboard/users/user/update?id=${row.original.id}`} className="flex items-center">
+                    <UserCog className="mr-2 h-4 w-4" />
+                    Edit User
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Shield className="mr-2 h-4 w-4" />
-                  Change Role
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
+                
                 <DropdownMenuItem
                   className="text-destructive focus:text-destructive"
                   onClick={() => handleDeleteUser(row.original.id)}
@@ -216,9 +292,110 @@ export default function UsersPage() {
             <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Users</h1>
             <p className="text-muted-foreground">Manage your team members and their roles.</p>
           </div>
-          <AnimateButton leftIcon={<Plus className="h-4 w-4" />}>Add User</AnimateButton>
+          <AnimateButton leftIcon={<Plus className="h-4 w-4" />} onClick={() => setIsDialogOpen(true)}>
+            Add User
+          </AnimateButton>
         </div>
       </FadeIn>
+
+      <Dialog
+        open={isDialogOpen}
+        onOpenChange={(open) => {
+          setIsDialogOpen(open)
+          if (!open) {
+            form.reset()
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New User</DialogTitle>
+            <DialogDescription>Create a new user account. Fill in all the required information.</DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="John Doe" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="john@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>User Type</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a user type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="super-admin">Super Admin</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                        <SelectItem value="editor">Editor</SelectItem>
+                        <SelectItem value="viewer">Viewer</SelectItem>
+                        <SelectItem value="user">User</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setIsDialogOpen(false)
+                    form.reset()
+                  }}
+                >
+                  Cancel
+                </Button>
+                <AnimateButton type="submit" isLoading={form.formState.isSubmitting}>
+                  Add User
+                </AnimateButton>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
 
       <AnimateCard delay={0.2}>
         <AnimateCardHeader>
@@ -235,7 +412,9 @@ export default function UsersPage() {
                 key: "role",
                 label: "Role",
                 options: [
+                  { label: "Super Admin", value: "super-admin" },
                   { label: "Admin", value: "admin" },
+                  { label: "Editor", value: "editor" },
                   { label: "User", value: "user" },
                   { label: "Viewer", value: "viewer" },
                 ],

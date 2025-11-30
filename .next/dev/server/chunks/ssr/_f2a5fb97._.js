@@ -677,10 +677,11 @@ function DataTable({ columns, data, searchKey = "name", searchPlaceholder = "Sea
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden",
+                className: "rounded-lg border bg-card text-card-foreground shadow-sm overflow-x-scroll",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "overflow-x-auto",
+                    className: "min-w-full",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Table"], {
+                        className: "w-full",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableHeader"], {
                                 children: table.getHeaderGroups().map((headerGroup)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TableRow"], {
@@ -976,6 +977,17 @@ const mockRoles = [
 function RolesPage() {
     const columns = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>[
             {
+                accessorKey: "id",
+                header: "ID",
+                cell: ({ row })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: row.original.id
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboard/users/role/page.tsx",
+                        lineNumber: 87,
+                        columnNumber: 11
+                    }, this)
+            },
+            {
                 accessorKey: "name",
                 header: "Role",
                 cell: ({ row })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -985,7 +997,7 @@ function RolesPage() {
                                 children: row.original.name
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 64,
+                                lineNumber: 95,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -993,13 +1005,13 @@ function RolesPage() {
                                 children: row.original.description
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 65,
+                                lineNumber: 96,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 63,
+                        lineNumber: 94,
                         columnNumber: 12
                     }, this)
             },
@@ -1013,12 +1025,12 @@ function RolesPage() {
                                 children: permission
                             }, permission, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 75,
+                                lineNumber: 106,
                                 columnNumber: 16
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 73,
+                        lineNumber: 104,
                         columnNumber: 12
                     }, this)
             },
@@ -1032,20 +1044,20 @@ function RolesPage() {
                                 className: "h-4 w-4 text-muted-foreground"
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 87,
+                                lineNumber: 118,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: row.original.members
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 88,
+                                lineNumber: 119,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 86,
+                        lineNumber: 117,
                         columnNumber: 12
                     }, this)
             },
@@ -1059,14 +1071,14 @@ function RolesPage() {
                                 className: "h-4 w-4"
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 97,
+                                lineNumber: 128,
                                 columnNumber: 14
                             }, this),
                             row.original.createdAt
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 96,
+                        lineNumber: 127,
                         columnNumber: 12
                     }, this)
             }
@@ -1085,7 +1097,7 @@ function RolesPage() {
                                     children: "Roles"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 142,
                                     columnNumber: 14
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1093,13 +1105,13 @@ function RolesPage() {
                                     children: "Define permissions and access levels for your team."
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                    lineNumber: 112,
+                                    lineNumber: 143,
                                     columnNumber: 14
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/users/role/page.tsx",
-                            lineNumber: 110,
+                            lineNumber: 141,
                             columnNumber: 12
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1110,25 +1122,25 @@ function RolesPage() {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 146,
                                     columnNumber: 14
                                 }, this),
                                 "Add New Role"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/users/role/page.tsx",
-                            lineNumber: 114,
+                            lineNumber: 145,
                             columnNumber: 12
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/dashboard/users/role/page.tsx",
-                    lineNumber: 109,
+                    lineNumber: 140,
                     columnNumber: 10
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                lineNumber: 108,
+                lineNumber: 139,
                 columnNumber: 8
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1144,12 +1156,12 @@ function RolesPage() {
                                     className: "h-6 w-6 text-primary"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                    lineNumber: 125,
+                                    lineNumber: 156,
                                     columnNumber: 16
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 124,
+                                lineNumber: 155,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1159,7 +1171,7 @@ function RolesPage() {
                                         children: "Total Roles"
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 159,
                                         columnNumber: 16
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1167,29 +1179,29 @@ function RolesPage() {
                                         children: mockRoles.length
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 160,
                                         columnNumber: 16
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                                lineNumber: 127,
+                                lineNumber: 158,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 123,
+                        lineNumber: 154,
                         columnNumber: 12
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/dashboard/users/role/page.tsx",
-                    lineNumber: 122,
+                    lineNumber: 153,
                     columnNumber: 10
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                lineNumber: 121,
+                lineNumber: 152,
                 columnNumber: 8
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$animate$2f$animate$2d$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimateCard"], {
@@ -1199,12 +1211,12 @@ function RolesPage() {
                             children: "Role Directory"
                         }, void 0, false, {
                             fileName: "[project]/app/dashboard/users/role/page.tsx",
-                            lineNumber: 137,
+                            lineNumber: 168,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 136,
+                        lineNumber: 167,
                         columnNumber: 10
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$animate$2f$animate$2d$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimateCardContent"], {
@@ -1225,24 +1237,24 @@ function RolesPage() {
                             ]
                         }, void 0, false, {
                             fileName: "[project]/app/dashboard/users/role/page.tsx",
-                            lineNumber: 140,
+                            lineNumber: 171,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/dashboard/users/role/page.tsx",
-                        lineNumber: 139,
+                        lineNumber: 170,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/dashboard/users/role/page.tsx",
-                lineNumber: 135,
+                lineNumber: 166,
                 columnNumber: 8
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/dashboard/users/role/page.tsx",
-        lineNumber: 107,
+        lineNumber: 138,
         columnNumber: 6
     }, this);
 }

@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useAuth } from "@/providers/auth-provider"
@@ -35,10 +34,11 @@ export default function LoginPage() {
     try {
       await login(email, password)
       toast({ title: "Welcome back!", description: "You have successfully logged in." })
-    } catch {
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Please check your credentials and try again."
       toast({
         title: "Login failed",
-        description: "Please check your credentials and try again.",
+        description: message,
         variant: "destructive",
       })
     } finally {
@@ -81,7 +81,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit}>
             <AnimateCardHeader>
               <AnimateCardTitle>Welcome back</AnimateCardTitle>
-              <AnimateCardDescription>Enter any email and password to continue</AnimateCardDescription>
+              <AnimateCardDescription>Enter your credentials to continue</AnimateCardDescription>
             </AnimateCardHeader>
 
             <AnimateCardContent className="space-y-4">
@@ -133,12 +133,10 @@ export default function LoginPage() {
               <AnimateButton type="submit" className="w-full" isLoading={isLoading}>
                 Sign in
               </AnimateButton>
-              <p className="text-center text-sm text-muted-foreground">Demo mode: Use any email and password</p>
+              <p className="text-center text-sm text-muted-foreground">Secure login powered by WebDynamo API</p>
             </AnimateCardFooter>
           </form>
-        </AnimateCard>
-
-       
+        </AnimateCard>    
       </div>
     </div>
   )

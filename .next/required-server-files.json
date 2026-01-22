@@ -42,7 +42,7 @@
         256,
         384
       ],
-      "path": "/_next/image",
+      "path": "/_next/image/",
       "loader": "default",
       "loaderFile": "",
       "domains": [],
@@ -77,7 +77,7 @@
     },
     "basePath": "",
     "sassOptions": {},
-    "trailingSlash": false,
+    "trailingSlash": true,
     "i18n": null,
     "productionBrowserSourceMaps": false,
     "excludeDefaultMomentLocales": true,
@@ -91,6 +91,7 @@
     "compiler": {},
     "expireTime": 31536000,
     "staticPageGenerationTimeout": 60,
+    "output": "export",
     "modularizeImports": {
       "@mui/icons-material": {
         "transform": "@mui/icons-material/{{member}}"
@@ -99,7 +100,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "d:\\sheefat\\dashboard-with-next-js",
+    "outputFileTracingRoot": "D:\\sheefat\\webdynamo-dashboard",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -288,12 +289,15 @@
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.mjs",
+    "eslint": {
+      "ignoreDuringBuilds": true
+    },
     "turbopack": {
-      "root": "d:\\sheefat\\dashboard-with-next-js"
+      "root": "D:\\sheefat\\webdynamo-dashboard"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "d:\\sheefat\\dashboard-with-next-js",
+  "appDir": "D:\\sheefat\\webdynamo-dashboard",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

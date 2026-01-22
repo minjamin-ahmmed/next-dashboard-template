@@ -3,14 +3,23 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react"
 import { useRouter } from "next/navigation"
 import Cookies from "js-cookie"
+import { authApi, AUTH_TOKEN_KEY, type ApiUser, type ApiRole, type ApiPermission } from "@/lib/api"
+
+// Re-export API types for use in other components
+export type { ApiUser, ApiRole, ApiPermission }
 
 export interface User {
-  id: string
+  id: number
   email: string
   name: string
   avatar?: string
-  role: "admin" | "user" | "viewer"
-  createdAt: Date
+  emailVerifiedAt: string | null
+  createdAt: string
+  updatedAt: string
+  roles: ApiRole[]
+  branch: string | null
+  allPermissions: ApiPermission[]
+  permissions: ApiPermission[]
 }
 
 interface AuthContextType {
@@ -20,12 +29,31 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   updateUser: (updates: Partial<User>) => void
+  // Helper functions for role/permission checking
+  hasRole: (roleName: string) => boolean
+  hasPermission: (permissionName: string) => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-const AUTH_TOKEN_KEY = "auth-token"
 const USER_DATA_KEY = "user-data"
+
+// Helper function to transform API user to local User type
+function transformApiUser(apiUser: ApiUser): User {
+  return {
+    id: apiUser.id,
+    email: apiUser.email,
+    name: apiUser.name,
+    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${apiUser.email}`,
+    emailVerifiedAt: apiUser.email_verified_at,
+    createdAt: apiUser.created_at,
+    updatedAt: apiUser.updated_at,
+    roles: apiUser.roles,
+    branch: apiUser.branch,
+    allPermissions: apiUser.all_permissions,
+    permissions: apiUser.permissions,
+  }
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
@@ -58,34 +86,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setIsLoading(true)
 
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-
         if (!email || !password) {
           throw new Error("Email and password are required")
         }
 
-        const mockUser: User = {
-          id: crypto.randomUUID(),
-          email: email,
-          name: email
-            .split("@")[0]
-            .replace(/[._-]/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase()),
-          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
-          role: email.includes("admin") ? "admin" : "user",
-          createdAt: new Date(),
+        // Call the real API
+        const response = await authApi.login(email, password)
+
+        if (response.status !== "success") {
+          throw new Error(response.message || "Login failed")
         }
 
-        const mockToken = btoa(JSON.stringify({ email, timestamp: Date.now() }))
+        // Transform API user to local User type
+        const transformedUser = transformApiUser(response.user)
 
-        Cookies.set(AUTH_TOKEN_KEY, mockToken, {
-          expires: 7,
+        // Store the token in cookies
+        Cookies.set(AUTH_TOKEN_KEY, response.token, {
+          expires: 7, // 7 days
           secure: process.env.NODE_ENV === "production",
           sameSite: "lax",
         })
-        localStorage.setItem(USER_DATA_KEY, JSON.stringify(mockUser))
 
-        setUser(mockUser)
+        // Store user data in localStorage
+        localStorage.setItem(USER_DATA_KEY, JSON.stringify(transformedUser))
+
+        setUser(transformedUser)
         router.push("/dashboard")
       } catch (error) {
         console.error("Login failed:", error)
@@ -101,18 +126,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true)
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500))
-
+      // Call API logout (optional - clears server session if applicable)
+      await authApi.logout()
+    } catch (error) {
+      // Ignore API logout errors - we'll clear local state anyway
+      console.warn("API logout failed:", error)
+    } finally {
+    // Always clear local state
       Cookies.remove(AUTH_TOKEN_KEY)
       localStorage.removeItem(USER_DATA_KEY)
       setUser(null)
-
-      router.push("/auth/login")
-    } catch (error) {
-      console.error("Logout failed:", error)
-      throw error
-    } finally {
       setIsLoading(false)
+      router.push("/auth/login")
     }
   }, [router])
 
@@ -125,6 +150,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
+  // Check if user has a specific role
+  const hasRole = useCallback(
+    (roleName: string): boolean => {
+      if (!user) return false
+      return user.roles.some(
+        (role) => role.name.toLowerCase() === roleName.toLowerCase()
+      )
+    },
+    [user]
+  )
+
+  // Check if user has a specific permission
+  const hasPermission = useCallback(
+    (permissionName: string): boolean => {
+      if (!user) return false
+      // Check in allPermissions first (includes role-based permissions)
+      const hasInAll = user.allPermissions.some(
+        (perm) => perm.name.toLowerCase() === permissionName.toLowerCase()
+      )
+      if (hasInAll) return true
+      // Check direct permissions
+      return user.permissions.some(
+        (perm) => perm.name.toLowerCase() === permissionName.toLowerCase()
+      )
+    },
+    [user]
+  )
+
   return (
     <AuthContext.Provider
       value={{
@@ -134,6 +187,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         login,
         logout,
         updateUser,
+        hasRole,
+        hasPermission,
       }}
     >
       {children}

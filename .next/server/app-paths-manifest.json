@@ -8,7 +8,9 @@
   "/dashboard/settings/page": "app/dashboard/settings/page.js",
   "/dashboard/users/page": "app/dashboard/users/page.js",
   "/dashboard/users/permission/page": "app/dashboard/users/permission/page.js",
+  "/dashboard/users/permission/update/page": "app/dashboard/users/permission/update/page.js",
   "/dashboard/users/role/page": "app/dashboard/users/role/page.js",
+  "/dashboard/users/role/update/page": "app/dashboard/users/role/update/page.js",
   "/dashboard/users/user/page": "app/dashboard/users/user/page.js",
   "/dashboard/users/user/update/page": "app/dashboard/users/user/update/page.js"
 }

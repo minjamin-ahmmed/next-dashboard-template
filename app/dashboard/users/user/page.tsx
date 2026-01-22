@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useMemo, useCallback } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { type ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal, Mail, Shield, UserCog, Trash2, Plus } from "lucide-react"
+import { Plus, MoreHorizontal, Pencil, Trash2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -11,13 +11,8 @@ import { AnimateButton } from "@/components/animate/animate-button"
 import { FadeIn } from "@/components/animate/page-transition"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DataTable } from "@/components/data-table"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Dialog,
   DialogContent,
@@ -27,6 +22,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
   Form,
   FormControl,
   FormField,
@@ -34,189 +45,216 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
-import { DataTable } from "@/components/data-table"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
-import Link from "next/link"
+import { usersApi, type ApiUser } from "@/lib/api"
 
-interface User {
-  id: string
-  name: string
-  email: string
-  role: "super-admin" | "admin" | "editor" | "user" | "viewer"
-  status: "active" | "inactive" | "pending"
-  avatar: string
-  joinedAt: string
-}
-
-const mockUsers: User[] = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john@example.com",
-    role: "admin",
-    status: "active",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=john",
-    joinedAt: "Jan 15, 2024",
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane@example.com",
-    role: "user",
-    status: "active",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jane",
-    joinedAt: "Feb 20, 2024",
-  },
-  {
-    id: "3",
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    role: "viewer",
-    status: "pending",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=bob",
-    joinedAt: "Mar 10, 2024",
-  },
-  {
-    id: "4",
-    name: "Alice Brown",
-    email: "alice@example.com",
-    role: "user",
-    status: "active",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=alice",
-    joinedAt: "Mar 25, 2024",
-  },
-  {
-    id: "5",
-    name: "Charlie Wilson",
-    email: "charlie@example.com",
-    role: "viewer",
-    status: "inactive",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=charlie",
-    joinedAt: "Apr 5, 2024",
-  },
-]
-
-const roleColors = {
-  "super-admin": "bg-purple-500/10 text-purple-600",
-  admin: "bg-primary/10 text-primary",
-  editor: "bg-blue-500/10 text-blue-600",
-  user: "bg-green-500/10 text-green-600",
-  viewer: "bg-gray-500/10 text-gray-600",
-}
-const statusColors = {
-  active: "bg-green-500/10 text-green-600",
-  inactive: "bg-red-500/10 text-red-600",
-  pending: "bg-yellow-500/10 text-yellow-600",
-}
-
-const formSchema = z.object({
+// Form validation schema for Create
+const createFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum(["super-admin", "admin", "editor", "user", "viewer"], {
-    required_error: "Please select a user type",
-  }),
 })
 
-type FormValues = z.infer<typeof formSchema>
+// Form validation schema for Edit
+const editFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+})
 
+type CreateFormValues = z.infer<typeof createFormSchema>
+type EditFormValues = z.infer<typeof editFormSchema>
 
+// Helper function to format date
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+}
+
+// Helper function to get primary role name
+function getPrimaryRole(user: ApiUser): string {
+  return user.roles.length > 0 ? user.roles[0].name : "No Role"
+}
 
 export default function UsersPage() {
-  const [users, setUsers] = useState(mockUsers)
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [users, setUsers] = useState<ApiUser[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [editingUser, setEditingUser] = useState<ApiUser | null>(null)
+  const [deleteUserId, setDeleteUserId] = useState<number | null>(null)
+  const [isDeleting, setIsDeleting] = useState(false)
   const { toast } = useToast()
 
-
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const createForm = useForm<CreateFormValues>({
+    resolver: zodResolver(createFormSchema),
     defaultValues: {
       name: "",
       email: "",
       password: "",
-      role: "user",
     },
   })
 
-  const handleDeleteUser = useCallback(
-    (userId: string) => setUsers((prev) => prev.filter((u) => u.id !== userId)),
-    [],
-  )
+  const editForm = useForm<EditFormValues>({
+    resolver: zodResolver(editFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+    },
+  })
 
-  const onSubmit = (values: FormValues) => {
-    const newUser: User = {
-      id: crypto.randomUUID(),
-      name: values.name,
-      email: values.email,
-      role: values.role,
-      status: "active",
-      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${values.email}`,
-      joinedAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+  // Fetch users from API
+  const fetchUsers = async () => {
+    try {
+      const response = await usersApi.getUsers()
+      if (response.status === "success") {
+        setUsers(response.users.data)
+      }
+    } catch (err) {
+      console.error("Failed to fetch users:", err)
+    } finally {
+      setIsLoading(false)
     }
-
-    setUsers((prev) => [newUser, ...prev])
-    setIsDialogOpen(false)
-    form.reset()
-    toast({
-      title: "User added successfully",
-      description: `${values.name} has been added to the team.`,
-      variant: "default",
-    })
   }
 
-  const columns = useMemo<ColumnDef<User>[]>(
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
+  // Handle create form submit
+  const onCreateSubmit = async (values: CreateFormValues) => {
+    setIsSubmitting(true)
+    try {
+      const response = await usersApi.register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        roles: "user",
+      })
+
+      if (response.status === "success") {
+        setIsCreateDialogOpen(false)
+        createForm.reset()
+        toast({
+          title: "User created successfully",
+          description: response.message,
+        })
+        fetchUsers()
+      } else {
+        throw new Error(response.message || "Failed to create user")
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to create user"
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Handle edit form submit
+  const onEditSubmit = async (values: EditFormValues) => {
+    if (!editingUser) return
+
+    setIsSubmitting(true)
+    try {
+      const response = await usersApi.updateUser(editingUser.id, {
+        name: values.name,
+        email: values.email,
+        roles: editingUser.roles.map((r) => r.name.toLowerCase()),
+      })
+
+      if (response.status === "success") {
+        setIsEditDialogOpen(false)
+        setEditingUser(null)
+        editForm.reset()
+        toast({
+          title: "User updated successfully",
+          description: response.message,
+        })
+        fetchUsers()
+      } else {
+        throw new Error(response.message || "Failed to update user")
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to update user"
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Handle delete user
+  const handleDeleteUser = async () => {
+    if (!deleteUserId) return
+
+    setIsDeleting(true)
+    try {
+      const response = await usersApi.deleteUser(deleteUserId)
+      if (response.status === "success") {
+        toast({
+          title: "User deleted",
+          description: response.message,
+        })
+        fetchUsers()
+      } else {
+        throw new Error(response.message || "Failed to delete user")
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to delete user"
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsDeleting(false)
+      setDeleteUserId(null)
+    }
+  }
+
+  // Open edit dialog with user data
+  const openEditDialog = (user: ApiUser) => {
+    setEditingUser(user)
+    editForm.reset({
+      name: user.name,
+      email: user.email,
+    })
+    setIsEditDialogOpen(true)
+  }
+
+  const columns = useMemo<ColumnDef<ApiUser>[]>(
     () => [
-      {
-        id: "select",
-        header: ({ table }) => (
-          <input
-            type="checkbox"
-            className="size-4 accent-primary"
-            checked={table.getIsAllPageRowsSelected()}
-            onChange={(value) => table.toggleAllPageRowsSelected((value.target as HTMLInputElement).checked)}
-            aria-label="Select all"
-          />
-        ),
-        cell: ({ row }) => (
-          <input
-            type="checkbox"
-            className="size-4 accent-primary"
-            checked={row.getIsSelected()}
-            onChange={(value) => row.toggleSelected((value.target as HTMLInputElement).checked)}
-            aria-label="Select row"
-          />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-        size: 40,
-      },
       {
         accessorKey: "serial",
         header: "SL No.",
-        cell: ({ row }) => <span className="text-sm text-muted-foreground text-center">{row.index + 1}</span>,
+        cell: ({ row }) => <span className="text-sm text-muted-foreground">{row.index + 1}</span>,
         enableSorting: false,
-        enableHiding: false,
-        size: 40,
+        size: 60,
       },
       {
         accessorKey: "name",
         header: "User",
         cell: ({ row }) => {
           const user = row.original
+          const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`
           return (
             <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10">
-                <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
-                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                <AvatarImage src={avatar} alt={user.name} />
+                <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div>
                 <p className="font-medium">{user.name}</p>
@@ -227,33 +265,32 @@ export default function UsersPage() {
         },
       },
       {
-        accessorKey: "role",
+        accessorKey: "roles",
         header: "Role",
-        cell: ({ row }) => (
-          <Badge variant="outline" className={roleColors[row.original.role]}>
-            {row.original.role}
-          </Badge>
-        ),
+        cell: ({ row }) => {
+          const roleName = getPrimaryRole(row.original)
+          return (
+            <Badge variant="outline" className="bg-primary/10 text-primary">
+              {roleName}
+            </Badge>
+          )
+        },
       },
       {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => (
-          <Badge variant="outline" className={statusColors[row.original.status]}>
-            {row.original.status}
-          </Badge>
-        ),
-      },
-      {
-        accessorKey: "joinedAt",
+        accessorKey: "created_at",
         header: "Joined",
-        cell: ({ row }) => <span className="text-sm text-muted-foreground text-center">{row.original.joinedAt}</span>,
+        cell: ({ row }) => (
+          <span className="text-sm text-muted-foreground">
+            {formatDate(row.original.created_at)}
+          </span>
+        ),
       },
       {
         id: "actions",
-        header: () => <div className="text-center pr-2">Actions</div>,
-        cell: ({ row }) => (
-          <div className="flex items-center justify-center pr-2">
+        header: "Action",
+        cell: ({ row }) => {
+          const user = row.original
+          return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -261,28 +298,57 @@ export default function UsersPage() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild>
-                  <Link href={`/dashboard/users/user/update?id=${row.original.id}`} className="flex items-center">
-                    <UserCog className="mr-2 h-4 w-4" />
-                    Edit User
-                  </Link>
+                <DropdownMenuItem onClick={() => openEditDialog(user)}>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  Edit
                 </DropdownMenuItem>
-                
                 <DropdownMenuItem
                   className="text-destructive focus:text-destructive"
-                  onClick={() => handleDeleteUser(row.original.id)}
+                  onClick={() => setDeleteUserId(user.id)}
                 >
                   <Trash2 className="mr-2 h-4 w-4" />
-                  Delete User
+                  Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        ),
+          )
+        },
       },
     ],
-    [handleDeleteUser],
+    [],
   )
+
+  // Loading skeleton
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <FadeIn>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Users</h1>
+            <p className="text-muted-foreground">Manage your team members and their roles.</p>
+          </div>
+        </FadeIn>
+        <AnimateCard delay={0.2}>
+          <AnimateCardHeader>
+            <AnimateCardTitle>Team Members</AnimateCardTitle>
+          </AnimateCardHeader>
+          <AnimateCardContent>
+            <div className="space-y-4">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <Skeleton className="h-10 w-10 rounded-full" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[200px]" />
+                    <Skeleton className="h-3 w-[150px]" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimateCardContent>
+        </AnimateCard>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
@@ -292,30 +358,29 @@ export default function UsersPage() {
             <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Users</h1>
             <p className="text-muted-foreground">Manage your team members and their roles.</p>
           </div>
-          <AnimateButton leftIcon={<Plus className="h-4 w-4" />} onClick={() => setIsDialogOpen(true)}>
-            Add User
+          <AnimateButton leftIcon={<Plus className="h-4 w-4" />} onClick={() => setIsCreateDialogOpen(true)}>
+            Add New User
           </AnimateButton>
         </div>
       </FadeIn>
 
+      {/* Create User Dialog */}
       <Dialog
-        open={isDialogOpen}
+        open={isCreateDialogOpen}
         onOpenChange={(open) => {
-          setIsDialogOpen(open)
-          if (!open) {
-            form.reset()
-          }
+          setIsCreateDialogOpen(open)
+          if (!open) createForm.reset()
         }}
       >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add New User</DialogTitle>
-            <DialogDescription>Create a new user account. Fill in all the required information.</DialogDescription>
+            <DialogDescription>Create a new user account.</DialogDescription>
           </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <Form {...createForm}>
+            <form onSubmit={createForm.handleSubmit(onCreateSubmit)} className="space-y-4">
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
@@ -328,7 +393,7 @@ export default function UsersPage() {
                 )}
               />
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
@@ -341,7 +406,7 @@ export default function UsersPage() {
                 )}
               />
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
@@ -353,49 +418,97 @@ export default function UsersPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>User Type</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a user type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="super-admin">Super Admin</SelectItem>
-                        <SelectItem value="admin">Admin</SelectItem>
-                        <SelectItem value="editor">Editor</SelectItem>
-                        <SelectItem value="viewer">Viewer</SelectItem>
-                        <SelectItem value="user">User</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <DialogFooter>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => {
-                    setIsDialogOpen(false)
-                    form.reset()
-                  }}
-                >
+                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                   Cancel
                 </Button>
-                <AnimateButton type="submit" isLoading={form.formState.isSubmitting}>
-                  Add User
+                <AnimateButton type="submit" isLoading={isSubmitting}>
+                  Create User
                 </AnimateButton>
               </DialogFooter>
             </form>
           </Form>
         </DialogContent>
       </Dialog>
+
+      {/* Edit User Dialog */}
+      <Dialog
+        open={isEditDialogOpen}
+        onOpenChange={(open) => {
+          setIsEditDialogOpen(open)
+          if (!open) {
+            setEditingUser(null)
+            editForm.reset()
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit User</DialogTitle>
+            <DialogDescription>Update user information.</DialogDescription>
+          </DialogHeader>
+          <Form {...editForm}>
+            <form onSubmit={editForm.handleSubmit(onEditSubmit)} className="space-y-4">
+              <FormField
+                control={editForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="John Doe" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={editForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="john@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <AnimateButton type="submit" isLoading={isSubmitting}>
+                  Update User
+                </AnimateButton>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteUserId !== null} onOpenChange={(open) => !open && setDeleteUserId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the user.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteUser}
+              disabled={isDeleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <AnimateCard delay={0.2}>
         <AnimateCardHeader>
@@ -407,19 +520,6 @@ export default function UsersPage() {
             data={users}
             searchKey="name"
             searchPlaceholder="Search users..."
-            filterOptions={[
-              {
-                key: "role",
-                label: "Role",
-                options: [
-                  { label: "Super Admin", value: "super-admin" },
-                  { label: "Admin", value: "admin" },
-                  { label: "Editor", value: "editor" },
-                  { label: "User", value: "user" },
-                  { label: "Viewer", value: "viewer" },
-                ],
-              },
-            ]}
           />
         </AnimateCardContent>
       </AnimateCard>

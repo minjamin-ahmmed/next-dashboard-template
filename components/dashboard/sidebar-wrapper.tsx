@@ -21,6 +21,7 @@ import {
   ChevronRight,
   ChevronDown,
   Sparkles,
+  Phone,
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -68,6 +69,7 @@ const navItems: SidebarNavItem[] = [
       { title: "Permission", href: "/dashboard/users/permission", icon: ShieldPlus },
     ],
   },
+  { title: "Contacts", href: "/dashboard/contact", icon: Phone },
   { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { title: "Settings", href: "/dashboard/settings", icon: Settings },
 ]
@@ -328,32 +330,128 @@ export function SidebarWrapper() {
         )}
       >
         {/* Header */}
-        <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
+        <div className="relative flex h-16 items-center justify-between border-b border-sidebar-border bg-linear-to-r from-sidebar/50 to-sidebar-accent/5 px-4 backdrop-blur-sm">
+          {/* Animated background gradient */}
+          <motion.div
+            className="absolute inset-0 bg-linear-to-r from-sidebar-primary/10 via-transparent to-transparent"
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+
           <AnimatePresence mode="wait">
-            {!isCollapsed && (
+            {!isCollapsed ? (
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center gap-2"
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="relative z-10 flex items-center gap-3"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
-                  <Sparkles className="h-5 w-5 text-sidebar-primary-foreground" />
+                {/* Enhanced Logo with Glow Effect */}
+                <motion.div
+                  className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-sidebar-primary via-sidebar-primary/90 to-sidebar-primary/80 shadow-lg shadow-sidebar-primary/20"
+                  whileHover={{ scale: 1.05, rotate: [0, -5, 5, -5, 0] }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  {/* Glow effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-xl bg-sidebar-primary/30 blur-md"
+                    animate={{
+                      opacity: [0.5, 0.8, 0.5],
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  <Sparkles className="relative z-10 h-5 w-5 text-sidebar-primary-foreground" />
+                </motion.div>
+
+                {/* Enhanced Typography */}
+                <div className="flex flex-col">
+                  <motion.span
+                    className="text-lg font-bold bg-linear-to-r from-sidebar-foreground via-sidebar-foreground to-sidebar-foreground/80 bg-clip-text text-transparent"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    Dashboard
+                  </motion.span>
+                  <motion.span
+                    className="text-[10px] font-medium text-sidebar-foreground/50 uppercase tracking-wider"
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    Admin Panel
+                  </motion.span>
                 </div>
-                <span className="text-lg font-bold">Dashboard</span>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                  className="relative z-10 flex items-center justify-center"
+                >
+                  <motion.div
+                    className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-sidebar-primary via-sidebar-primary/90 to-sidebar-primary/80 shadow-lg shadow-sidebar-primary/20"
+                    whileHover={{ scale: 1.1, rotate: 180 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 rounded-xl bg-sidebar-primary/30 blur-md"
+                      animate={{
+                        opacity: [0.5, 0.8, 0.5],
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    <Sparkles className="relative z-10 h-5 w-5 text-sidebar-primary-foreground" />
+                  </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden h-8 w-8 text-sidebar-foreground hover:bg-sidebar-accent lg:flex"
-            onClick={toggleCollapse}
+          {/* Enhanced Collapse Button */}
+          <motion.div
+            className="relative z-10"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hidden h-9 w-9 rounded-lg text-sidebar-foreground/70 transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground lg:flex"
+              onClick={toggleCollapse}
+            >
+              <motion.div
+                animate={{ rotate: isCollapsed ? 0 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                {isCollapsed ? (
+                  <ChevronRight className="h-4 w-4" />
+                ) : (
+                  <ChevronLeft className="h-4 w-4" />
+                )}
+              </motion.div>
+            </Button>
+          </motion.div>
         </div>
 
         {/* Navigation */}

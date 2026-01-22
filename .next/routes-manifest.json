@@ -5,12 +5,26 @@
   "basePath": "",
   "redirects": [
     {
-      "source": "/:path+/",
-      "destination": "/:path+",
+      "source": "/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/",
+      "destination": "/:file",
+      "internal": true,
+      "priority": true,
+      "missing": [
+        {
+          "type": "header",
+          "key": "x-nextjs-data"
+        }
+      ],
+      "statusCode": 308,
+      "regex": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+))/$"
+    },
+    {
+      "source": "/:notfile((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+)",
+      "destination": "/:notfile/",
       "internal": true,
       "priority": true,
       "statusCode": 308,
-      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+      "regex": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+))$"
     }
   ],
   "headers": [],
@@ -76,10 +90,22 @@
       "namedRegex": "^/dashboard/users/permission(?:/)?$"
     },
     {
+      "page": "/dashboard/users/permission/update",
+      "regex": "^/dashboard/users/permission/update(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/users/permission/update(?:/)?$"
+    },
+    {
       "page": "/dashboard/users/role",
       "regex": "^/dashboard/users/role(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/dashboard/users/role(?:/)?$"
+    },
+    {
+      "page": "/dashboard/users/role/update",
+      "regex": "^/dashboard/users/role/update(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/users/role/update(?:/)?$"
     },
     {
       "page": "/dashboard/users/user",

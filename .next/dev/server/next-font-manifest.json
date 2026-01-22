@@ -12,6 +12,12 @@
       "static/media/345c85a432359eed-s.p.eead68dd.woff2",
       "static/media/9be384ea93fe3f49-s.p.ab26386e.woff2"
     ],
+    "[project]/app/dashboard/analytics/page": [
+      "static/media/f30fd2e485acf1bc-s.p.3d1b066d.woff2",
+      "static/media/8e451580e5e95631-s.p.0e564e6e.woff2",
+      "static/media/345c85a432359eed-s.p.eead68dd.woff2",
+      "static/media/9be384ea93fe3f49-s.p.ab26386e.woff2"
+    ],
     "[project]/app/dashboard/contact/page": [
       "static/media/f30fd2e485acf1bc-s.p.3d1b066d.woff2",
       "static/media/8e451580e5e95631-s.p.0e564e6e.woff2",
@@ -24,19 +30,7 @@
       "static/media/345c85a432359eed-s.p.eead68dd.woff2",
       "static/media/9be384ea93fe3f49-s.p.ab26386e.woff2"
     ],
-    "[project]/app/dashboard/settings/page": [
-      "static/media/f30fd2e485acf1bc-s.p.3d1b066d.woff2",
-      "static/media/8e451580e5e95631-s.p.0e564e6e.woff2",
-      "static/media/345c85a432359eed-s.p.eead68dd.woff2",
-      "static/media/9be384ea93fe3f49-s.p.ab26386e.woff2"
-    ],
     "[project]/app/dashboard/users/permission/page": [
-      "static/media/f30fd2e485acf1bc-s.p.3d1b066d.woff2",
-      "static/media/8e451580e5e95631-s.p.0e564e6e.woff2",
-      "static/media/345c85a432359eed-s.p.eead68dd.woff2",
-      "static/media/9be384ea93fe3f49-s.p.ab26386e.woff2"
-    ],
-    "[project]/app/dashboard/users/permission/update/page": [
       "static/media/f30fd2e485acf1bc-s.p.3d1b066d.woff2",
       "static/media/8e451580e5e95631-s.p.0e564e6e.woff2",
       "static/media/345c85a432359eed-s.p.eead68dd.woff2",

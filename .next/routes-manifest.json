@@ -36,6 +36,12 @@
   "dynamicRoutes": [],
   "staticRoutes": [
     {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
       "page": "/_global-error",
       "regex": "^/_global\\-error(?:/)?$",
       "routeKeys": {},
@@ -64,6 +70,12 @@
       "regex": "^/dashboard/analytics(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/dashboard/analytics(?:/)?$"
+    },
+    {
+      "page": "/dashboard/contact",
+      "regex": "^/dashboard/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/contact(?:/)?$"
     },
     {
       "page": "/dashboard/logout",

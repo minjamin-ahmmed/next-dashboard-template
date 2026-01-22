@@ -3,6 +3,7 @@
   "/_not-found/page": "/_not-found",
   "/auth/login/page": "/auth/login",
   "/dashboard/analytics/page": "/dashboard/analytics",
+  "/dashboard/contact/page": "/dashboard/contact",
   "/dashboard/logout/page": "/dashboard/logout",
   "/dashboard/page": "/dashboard",
   "/dashboard/settings/page": "/dashboard/settings",
@@ -12,5 +13,6 @@
   "/dashboard/users/role/page": "/dashboard/users/role",
   "/dashboard/users/role/update/page": "/dashboard/users/role/update",
   "/dashboard/users/user/page": "/dashboard/users/user",
-  "/dashboard/users/user/update/page": "/dashboard/users/user/update"
+  "/dashboard/users/user/update/page": "/dashboard/users/user/update",
+  "/page": "/"
 }

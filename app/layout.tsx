@@ -1,15 +1,16 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Lato } from "next/font/google"
+import { Manrope } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { AuthProvider } from "@/providers/auth-provider"
+import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 
-const lato = Lato({ 
+const manrope = Manrope({ 
   subsets: ["latin"], 
-  weight: ["300", "400", "700", "900"],
-  variable: "--font-lato" 
+  weight: ["300", "400", "700"],
+  variable: "--font-manrope" 
 })
 
 export const metadata: Metadata = {
@@ -48,11 +49,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${lato.variable} font-sans antialiased`}>
-        <AuthProvider>
-          {children}
-          <Toaster />
-        </AuthProvider>
+      <body className={`${manrope.variable} font-sans antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

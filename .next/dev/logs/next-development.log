@@ -1,124 +1,21 @@
-[00:00:03.714] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:03.731] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
-[00:00:04.157] Server  LOG      ✓ Ready in 3s
-[00:00:07.199] Server  LOG      ○ Compiling / ...
-[00:00:15.769] Server  LOG      ○ Compiling /auth/login ...
-[00:00:17.806] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:18.178] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:18.458] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:18.458] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/auth/login/","route":"/auth/login/"}
-[00:00:18.458] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/auth/login/ color: rgb(120, 120, 120) color: inherit {"dp":"/auth/login/","o":"http://localhost:3000/auth/login/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083727929}
-[00:00:18.748] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/auth/login/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <script>
-                      <RootLayout>
-                        <html lang="en" suppressHydrationWarning={true}>
-                          <body
-                            className="lato_f4206833-module__MIq8eG__variable font-sans antialiased"
--                           __processed_b8cec472-9631-49e0-8a8d-f0aa1d9fc83c__="true"
--                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
-                          >
-                  ...
-
-[00:00:18.824] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:19.110] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:19.110] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/auth/login/","route":"/auth/login/"}
-[00:00:19.110] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/auth/login/ color: rgb(120, 120, 120) color: inherit {"dp":"/auth/login/","o":"http://localhost:3000/auth/login/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083728655}
-[00:00:19.643] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:19.643] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/auth/login/","route":"/auth/login/"}
-[00:00:19.643] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/auth/login/ color: rgb(120, 120, 120) color: inherit {"dp":"/auth/login/","o":"http://localhost:3000/auth/login/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083728412}
-[00:00:21.568] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:21.889] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:21.889] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/auth/login/","route":"/auth/login/"}
-[00:00:21.889] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/auth/login/ color: rgb(120, 120, 120) color: inherit {"dp":"/auth/login/","o":"http://localhost:3000/auth/login/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083731428}
-[00:00:38.382] Server  LOG      ○ Compiling /dashboard ...
-[00:00:40.587] Browser WARN    motion() is deprecated. Use motion.create() instead.
-[00:00:42.964] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:00:42.964] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:00:42.964] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:00:42.964] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:00:42.964] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/","o":"http://localhost:3000/dashboard/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083751331}
-[00:00:49.812] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/user/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/user/","o":"http://localhost:3000/dashboard/users/user/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083759306}
-[00:01:31.453] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/role/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/role/","o":"http://localhost:3000/dashboard/users/role/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083800985}
-[00:01:37.320] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/permission/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/permission/","o":"http://localhost:3000/dashboard/users/permission/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083806858}
-[00:01:42.578] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/contact/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/contact/","o":"http://localhost:3000/dashboard/contact/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083812108}
-[00:02:03.698] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:03.698] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:03.698] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:03.698] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:03.698] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/analytics/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/analytics/","o":"http://localhost:3000/dashboard/analytics/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083832992}
-[00:02:04.119] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:04.119] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:04.119] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:04.119] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[00:02:11.581] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/user/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/user/","o":"http://localhost:3000/dashboard/users/user/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083841101}
-[00:02:25.797] Browser ERROR   uncaughtError: Error: Only two keyframes currently supported with spring and inertia animations. Trying to animate 0,-5,5,-5,0. For more information and steps for solving, visit https://motion.dev/troubleshooting/spring-two-frames
-[00:02:31.098] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/role/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/role/","o":"http://localhost:3000/dashboard/users/role/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083860636}
-[00:02:35.581] Server  WARN    motion() is deprecated. Use motion.create() instead.
-[00:02:35.990] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:35.990] Browser WARN    motion() is deprecated. Use motion.create() instead.
-[00:02:36.315] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:00.836] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.840] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:00:00.978] Server  LOG      ✓ Ready in 746ms
+[00:00:02.537] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__caf5c5d7._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:02.539] Server  ERROR    ⨯ ReferenceError: lato is not defined
+[00:00:02.753] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.753] Browser ERROR   uncaughtError: ReferenceError: lato is not defined
+[00:00:05.839] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__caf5c5d7._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:05.839] Server  ERROR    ⨯ ReferenceError: lato is not defined
+[00:00:05.912] Server  WARN    motion() is deprecated. Use motion.create() instead.
+[00:00:06.222] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:06.512] Browser ERROR   uncaughtError: ReferenceError: lato is not defined
+[00:00:06.512] Browser WARN    motion() is deprecated. Use motion.create() instead.
+[00:00:10.620] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:00:10.807] Server  WARN    motion() is deprecated. Use motion.create() instead.
+[00:00:11.174] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:11.511] Browser WARN    motion() is deprecated. Use motion.create() instead.
+[00:00:13.504] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -149,12 +46,1298 @@ It can also happen if the client has a browser extension installed which messes 
                       <RootLayout>
                         <html lang="en" suppressHydrationWarning={true}>
                           <body
-                            className="lato_f4206833-module__MIq8eG__variable font-sans antialiased"
--                           __processed_d5102ca6-740a-463f-abfa-641a650ef684__="true"
--                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                            className="montserrat_bf90ead9-module__oUPkca__variable font-sans antialiased"
+-                           __processed_f7791e03-b619-4544-bf2a-6ce9380eaece__="true"
                           >
                   ...
 
-[00:02:36.461] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:02:36.461] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/dashboard/users/role/","route":"/dashboard/users/role/"}
-[00:02:36.461] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/role/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/role/","o":"http://localhost:3000/dashboard/users/role/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769083866005}
+[00:00:13.504] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:13.505] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/dashboard/users/permission/","route":"/dashboard/users/permission/"}
+[00:00:13.505] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/permission/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/permission/","o":"http://localhost:3000/dashboard/users/permission/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151418775}
+[00:00:13.505] Browser ERROR   Failed to fetch permissions: {}
+[00:00:24.356] Browser ERROR   uncaughtError: Error: Only two keyframes currently supported with spring and inertia animations. Trying to animate 0,-5,5,-5,0. For more information and steps for solving, visit https://motion.dev/troubleshooting/spring-two-frames
+[00:00:27.322] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/user/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/user/","o":"http://localhost:3000/dashboard/users/user/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151433995}
+[00:00:27.857] Browser ERROR   Failed to fetch users: {}
+[00:00:28.089] Browser ERROR   Failed to fetch users: {}
+[00:00:30.355] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/role/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/role/","o":"http://localhost:3000/dashboard/users/role/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151437028}
+[00:00:30.788] Browser ERROR   Failed to fetch roles: {}
+[00:00:31.039] Browser ERROR   Failed to fetch roles: {}
+[00:00:46.648] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:00:47.503] Browser ERROR   ./app/layout.tsx:10:24
+Parsing ecmascript source code failed
+   8 | import { Toaster } from "@/components/ui/toaster"
+   9 |
+> 10 | const montserrat = San Francisco({ 
+     |                        ^^^^^^^^^
+  11 |   subsets: ["latin"], 
+  12 |   weight: ["300", "400", "700", "900"],
+  13 |   variable: "--font-lato" 
+
+Expected a semicolon
+[00:00:51.163] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:00:51.380] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\_124652cd._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.382] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.382] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__2f398e90._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.394] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\node_modules_next_dist_606a425c._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.440] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.442] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.445] Server  ERROR    ⨯ ReferenceError: SanFrancisco is not defined
+[00:00:51.446] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\_124652cd._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.447] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.447] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__2f398e90._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.448] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\node_modules_next_dist_606a425c._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.449] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.449] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.451] Server  ERROR    ⨯ ReferenceError: SanFrancisco is not defined
+[00:00:51.489] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\_124652cd._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.492] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.495] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__2f398e90._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.497] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\node_modules_next_dist_606a425c._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.499] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.500] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.503] Server  ERROR    ⨯ ReferenceError: SanFrancisco is not defined
+[00:00:51.506] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\_124652cd._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.507] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.508] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__2f398e90._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.508] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\node_modules_next_dist_606a425c._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.510] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.512] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:51.513] Server  ERROR    ⨯ ReferenceError: SanFrancisco is not defined
+[00:00:52.275] Browser ERROR   uncaughtError: ReferenceError: SanFrancisco is not defined
+[00:00:54.874] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:00:54.957] Server  LOG      ✓ Compiled in 52ms
+[00:00:59.084] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:01:06.929] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:01:06.984] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:06.988] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:06.989] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:06.989] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:07.504] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+https://nextjs.org/docs/messages/module-not-found
+[00:01:10.784] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:01:10.834] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.834] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.835] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.836] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.836] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.837] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.838] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:10.838] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:11.508] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+https://nextjs.org/docs/messages/module-not-found
+[00:01:16.006] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:01:16.047] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.047] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.048] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.048] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.049] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.049] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.050] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.050] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:01:16.506] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+https://nextjs.org/docs/messages/module-not-found
+[00:01:48.502] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown font
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+Error while looking up import map: Unknown font
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown font
+
+https://nextjs.org/docs/messages/module-not-found
+[00:01:56.151] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:01:56.319] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\_124652cd._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.324] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.324] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__2f398e90._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.339] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\node_modules_next_dist_606a425c._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.343] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.345] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.347] Server  ERROR    ⨯ ReferenceError: Manrope is not defined
+[00:01:56.350] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\_124652cd._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.350] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.351] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__2f398e90._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.351] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\node_modules_next_dist_606a425c._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.353] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.353] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:01:56.355] Server  ERROR    ⨯ ReferenceError: Manrope is not defined
+[00:01:56.518] Browser ERROR   uncaughtError: ReferenceError: Manrope is not defined
+[00:02:01.938] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:03.185] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:03.241] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.242] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.243] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.243] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.244] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.245] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.246] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.246] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:03.501] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:05.737] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:05.792] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:05.792] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:05.793] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:05.793] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:06.505] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:08.205] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:08.248] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:08.249] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:08.250] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:08.251] Server  ERROR    ⨯ ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:08.500] Browser ERROR   ./app/layout.tsx
+Module not found: Can't resolve 'next/font/google/target.css'
+Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of <ModuleAssetContext as AssetContext>::resolve_asset failed
+- Execution of resolve failed
+- Execution of resolve_internal failed
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+Error while looking up import map: Unknown weight 900 for font Manrope.
+
+Debug info:
+- Execution of NextFontGoogleReplacer::import_map_result failed
+- Execution of *get_font_css_properties failed
+- Execution of font_options_from_query_map failed
+- Unknown weight 900 for font Manrope.
+  Available weights: 200, 300, 400, 500, 600, 700, 800, variable
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:14.003] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:14.463] Server  LOG      ✓ Compiled in 427ms
+[00:02:14.523] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__fe8ea683._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:02:14.524] Server  ERROR    ⨯ ReferenceError: sanFrancisco is not defined
+[00:02:14.538] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__fe8ea683._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:02:14.538] Server  ERROR    ⨯ ReferenceError: sanFrancisco is not defined
+[00:02:14.633] Server  WARN    motion() is deprecated. Use motion.create() instead.
+[00:02:14.703] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__fe8ea683._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:02:14.704] Server  ERROR    ⨯ ReferenceError: sanFrancisco is not defined
+[00:02:14.722] Server  ERROR   D:\Sheefat Projects\next-dashboard-template\.next\dev\server\chunks\ssr\[root-of-the-server]__fe8ea683._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:02:14.723] Server  ERROR    ⨯ ReferenceError: sanFrancisco is not defined
+[00:02:14.962] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:14.962] Browser ERROR   uncaughtError: ReferenceError: sanFrancisco is not defined
+[00:02:15.501] Browser WARN    motion() is deprecated. Use motion.create() instead.
+[00:02:15.632] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:18.938] Server  ERROR    ⨯ Middleware cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export
+[00:02:19.115] Server  WARN    motion() is deprecated. Use motion.create() instead.
+[00:02:19.346] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:19.505] Browser WARN    motion() is deprecated. Use motion.create() instead.
+[00:02:20.505] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard..." notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" suppressHydrationWarning={true}>
+                          <body
+                            className="manrope_b3c2c358-module__qVEM_G__variable font-sans antialiased"
+-                           __processed_e6fa0fce-5cfd-4168-ae38-f3eb55ecf90d__="true"
+                          >
+                  ...
+
+[00:02:20.506] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:20.506] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/dashboard/users/role/","route":"/dashboard/users/role/"}
+[00:02:20.506] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/role/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/role/","o":"http://localhost:3000/dashboard/users/role/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151546535}
+[00:02:20.506] Browser ERROR   Failed to fetch roles: {}
+[00:02:23.889] Browser ERROR   uncaughtError: Error: Only two keyframes currently supported with spring and inertia animations. Trying to animate 0,-5,5,-5,0. For more information and steps for solving, visit https://motion.dev/troubleshooting/spring-two-frames
+[00:02:34.637] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:34.637] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:34.637] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:34.637] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:34.637] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/","o":"http://localhost:3000/dashboard/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151561303}
+[00:02:38.656] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:38.658] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:38.807] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:39.056] Browser WARN    motion() is deprecated. Use motion.create() instead.
+[00:02:39.056] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:39.056] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:39.056] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:39.056] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:02:39.056] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" suppressHydrationWarning={true}>
+                          <body
+                            className="manrope_b3c2c358-module__qVEM_G__variable font-sans antialiased"
+-                           __processed_a035fcb3-ba30-4387-acf9-467d0e1b5247__="true"
+                          >
+                  ...
+
+[00:02:39.187] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:39.187] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/dashboard/","route":"/dashboard/"}
+[00:02:39.187] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/","o":"http://localhost:3000/dashboard/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151565855}
+[00:02:45.638] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/user/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/user/","o":"http://localhost:3000/dashboard/users/user/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151572307}
+[00:02:46.187] Browser ERROR   Failed to fetch users: {}
+[00:02:46.440] Browser ERROR   Failed to fetch users: {}
+[00:02:46.720] Browser ERROR   Failed to fetch users: {}
+[00:02:46.963] Browser ERROR   Failed to fetch users: {}
+[00:02:48.173] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/role/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/role/","o":"http://localhost:3000/dashboard/users/role/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151574847}
+[00:02:48.687] Browser ERROR   Failed to fetch roles: {}
+[00:02:48.935] Browser ERROR   Failed to fetch roles: {}
+[00:02:49.189] Browser ERROR   Failed to fetch roles: {}
+[00:02:49.457] Browser ERROR   Failed to fetch roles: {}
+[00:02:50.973] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/users/permission/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/users/permission/","o":"http://localhost:3000/dashboard/users/permission/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151577640}
+[00:02:51.437] Browser ERROR   Failed to fetch permissions: {}
+[00:02:51.688] Browser ERROR   Failed to fetch permissions: {}
+[00:02:51.990] Browser ERROR   Failed to fetch permissions: {}
+[00:02:52.238] Browser ERROR   Failed to fetch permissions: {}
+[00:04:47.195] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard/contact/ color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard/contact/","o":"http://localhost:3000/dashboard/contact/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1769151693867}
+[00:04:47.750] Browser ERROR   Failed to fetch messages: {}
+[00:04:48.023] Browser ERROR   Failed to fetch messages: {}
+[00:04:48.284] Browser ERROR   Failed to fetch messages: {}
+[00:04:48.555] Browser ERROR   Failed to fetch messages: {}

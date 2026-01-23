@@ -5309,8 +5309,8 @@
   }
 
   @media (min-width: 64rem) {
-    .lg\:w-\[400px\] {
-      width: 400px;
+    .lg\:w-\[500px\] {
+      width: 500px;
     }
   }
 

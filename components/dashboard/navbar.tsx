@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Bell, Search, Moon, Sun } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -19,18 +20,28 @@ import { cn } from "@/lib/utils"
 
 export function Navbar() {
   const { user, logout } = useAuth()
-  const [isDark, setIsDark] = useState(false)
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const [hasNotifications, setHasNotifications] = useState(true)
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark")
-    setIsDark(isDarkMode)
+    setMounted(true)
   }, [])
 
+  const isDark = theme === "dark"
+
   const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle("dark")
+    setTheme(theme === "dark" ? "light" : "dark")
   }
+
+  // Prevent hydration mismatch by showing placeholder until mounted
+  const themeIcon = !mounted ? (
+    <Moon className="h-5 w-5" />
+  ) : isDark ? (
+    <Sun className="h-5 w-5" />
+  ) : (
+    <Moon className="h-5 w-5" />
+  )
 
   return (
     <motion.header
@@ -48,8 +59,8 @@ export function Navbar() {
 
       <div className="flex items-center gap-2">
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button variant="ghost" size="icon" onClick={toggleTheme}>
-            {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          <Button variant="ghost" size="icon" onClick={toggleTheme} disabled={!mounted}>
+            {themeIcon}
           </Button>
         </motion.div>
 

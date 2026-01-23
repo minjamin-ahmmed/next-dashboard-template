@@ -1,12 +1,13 @@
 "use client"
 
-import { useState, useEffect, createContext, useContext, type ReactNode } from "react"
+import { useState, useEffect, type ReactNode } from "react"
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 import type { Transition } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/providers/auth-provider"
+import { useSidebarStore } from "@/stores/sidebar-store"
 import {
   Home,
   Users,
@@ -26,21 +27,23 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
-interface SidebarContextType {
-  isOpen: boolean
-  isCollapsed: boolean
-  isMobile: boolean
-  toggleSidebar: () => void
-  toggleCollapse: () => void
-  closeMobileSidebar: () => void
-}
-
-const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
-
+// useSidebar hook - wraps Zustand store for backward compatibility
 export function useSidebar() {
-  const context = useContext(SidebarContext)
-  if (!context) throw new Error("useSidebar must be used within SidebarProvider")
-  return context
+  const isOpen = useSidebarStore((state) => state.isOpen)
+  const isCollapsed = useSidebarStore((state) => state.isCollapsed)
+  const isMobile = useSidebarStore((state) => state.isMobile)
+  const toggleSidebar = useSidebarStore((state) => state.toggleSidebar)
+  const toggleCollapse = useSidebarStore((state) => state.toggleCollapse)
+  const closeMobileSidebar = useSidebarStore((state) => state.closeMobileSidebar)
+
+  return {
+    isOpen,
+    isCollapsed,
+    isMobile,
+    toggleSidebar,
+    toggleCollapse,
+    closeMobileSidebar,
+  }
 }
 
 interface SidebarNavItem {
@@ -258,32 +261,18 @@ export function SidebarItem({ item, pathname, isCollapsed, closeMobileSidebar }:
   )
 }
 
+// SidebarProvider component - initializes mobile detection
 export function SidebarProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const setIsMobile = useSidebarStore((state) => state.setIsMobile)
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024)
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+  }, [setIsMobile])
 
-  return (
-    <SidebarContext.Provider
-      value={{
-        isOpen,
-        isCollapsed,
-        isMobile,
-        toggleSidebar: () => setIsOpen(!isOpen),
-        toggleCollapse: () => setIsCollapsed(!isCollapsed),
-        closeMobileSidebar: () => setIsOpen(false),
-      }}
-    >
-      {children}
-    </SidebarContext.Provider>
-  )
+  return <>{children}</>
 }
 
 export function SidebarWrapper() {

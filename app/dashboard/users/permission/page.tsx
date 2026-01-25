@@ -9,14 +9,14 @@ import { DataTable } from "@/components/data-table"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Input } from "@/components/ui/input"
-import { permissionsApi, type PermissionItem } from "@/lib/api"
+import { permissionsApi, type ApiPermission } from "@/lib/api"
 
 // Mobile Card Component for individual permission
 function MobilePermissionCard({
   permission,
   index,
 }: {
-  permission: PermissionItem
+  permission: ApiPermission
   index: number
 }) {
   return (
@@ -32,15 +32,16 @@ function MobilePermissionCard({
 }
 
 export default function PermissionsPage() {
-  const [permissions, setPermissions] = useState<PermissionItem[]>([])
+  const [permissions, setPermissions] = useState<ApiPermission[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [mobileSearch, setMobileSearch] = useState("")
 
   // Filter permissions for mobile view
   const filteredPermissions = useMemo(() => {
+    if (!permissions || permissions.length === 0) return []
     if (!mobileSearch.trim()) return permissions
     const searchLower = mobileSearch.toLowerCase()
-    return permissions.filter((permission) => permission.name.toLowerCase().includes(searchLower))
+    return permissions.filter((permission) => permission?.name?.toLowerCase().includes(searchLower))
   }, [permissions, mobileSearch])
 
   // Fetch permissions from API
@@ -48,11 +49,14 @@ export default function PermissionsPage() {
     const fetchPermissions = async () => {
       try {
         const response = await permissionsApi.getPermissions()
-        if (response.status === "success") {
-          setPermissions(response.permission)
+        if (response.status === "success" || response.status === "Success") {
+          setPermissions(response.permissions || [])
+        } else {
+          setPermissions([])
         }
       } catch (err) {
         console.error("Failed to fetch permissions:", err)
+        setPermissions([])
       } finally {
         setIsLoading(false)
       }
@@ -61,7 +65,7 @@ export default function PermissionsPage() {
     fetchPermissions()
   }, [])
 
-  const columns = useMemo<ColumnDef<PermissionItem>[]>(
+  const columns = useMemo<ColumnDef<ApiPermission>[]>(
     () => [
       {
         accessorKey: "serial",
@@ -136,7 +140,7 @@ export default function PermissionsPage() {
             </div>
             <div>
               <p className="text-xs text-muted-foreground sm:text-sm">Total Permissions</p>
-              <p className="text-xl font-semibold sm:text-2xl">{permissions.length}</p>
+              <p className="text-xl font-semibold sm:text-2xl">{permissions?.length || 0}</p>
             </div>
           </AnimateCardContent>
         </AnimateCard>
@@ -170,9 +174,9 @@ export default function PermissionsPage() {
                 </div>
               )}
             </div>
-            {filteredPermissions.length > 0 && (
+            {filteredPermissions && filteredPermissions.length > 0 && (
               <p className="text-xs text-muted-foreground text-center pt-2">
-                Showing {filteredPermissions.length} of {permissions.length} permissions
+                Showing {filteredPermissions.length} of {permissions?.length || 0} permissions
               </p>
             )}
           </div>

@@ -1,5 +1,13 @@
 import type { ApiPermission } from "./permission"
 
+// Permission with pivot (for role-permission relationship)
+export interface ApiPermissionWithPivot extends ApiPermission {
+  pivot: {
+    role_id: number
+    permission_id: number
+  }
+}
+
 // Role Interface
 export interface ApiRole {
   id: number
@@ -12,14 +20,14 @@ export interface ApiRole {
     model_id: number
     role_id: number
   }
-  permissions: ApiPermission[]
+  permissions: ApiPermissionWithPivot[]
 }
 
 // Role List Response
 export interface RoleListResponse {
-  roles: Record<string, string>
+  role: ApiRole[]
   message: string
-  status: "success" | "error"
+  status: "Success" | "Error" | "success" | "error"
 }
 
 // Role Wise User
@@ -32,6 +40,13 @@ export interface RoleWiseUser {
 
 export interface RoleWiseUserResponse {
   roles: Record<string, RoleWiseUser[]>
+  message: string
+  status: "success" | "error"
+}
+
+// Role List Simple Response (for role_list endpoint)
+export interface RoleListSimpleResponse {
+  roles: Record<string, string> // key is role ID, value is role name
   message: string
   status: "success" | "error"
 }

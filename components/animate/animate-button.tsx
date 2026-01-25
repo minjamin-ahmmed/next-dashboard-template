@@ -56,7 +56,7 @@ export const AnimateButton = forwardRef<HTMLButtonElement, AnimateButtonProps>(
         disabled={disabled || isLoading}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        transition={{ duration: 0.15, ease: "easeInOut" }}
+        transition={{ duration: 0.15, ease: "easeInOut", type: "tween" }}
         {...props}
       >
         {isLoading ? (
@@ -67,13 +67,21 @@ export const AnimateButton = forwardRef<HTMLButtonElement, AnimateButtonProps>(
         ) : (
           <>
             {leftIcon && (
-              <motion.span initial={{ x: -5, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+              <motion.span 
+                initial={{ x: -5, opacity: 0 }} 
+                animate={{ x: 0, opacity: 1 }} 
+                transition={{ delay: 0.1, type: "tween", ease: "easeOut" }}
+              >
                 {leftIcon}
               </motion.span>
             )}
             {children}
             {rightIcon && (
-              <motion.span initial={{ x: 5, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+              <motion.span 
+                initial={{ x: 5, opacity: 0 }} 
+                animate={{ x: 0, opacity: 1 }} 
+                transition={{ delay: 0.1, type: "tween", ease: "easeOut" }}
+              >
                 {rightIcon}
               </motion.span>
             )}

@@ -1,22 +1,63 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { type ColumnDef } from "@tanstack/react-table"
-import { ShieldPlus, Users } from "lucide-react"
+import { MoreHorizontal, Pencil, Plus, ShieldPlus, Trash2, Users } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 import { AnimateCard, AnimateCardHeader, AnimateCardTitle, AnimateCardContent } from "@/components/animate/animate-card"
+import { AnimateButton } from "@/components/animate/animate-button"
 import { FadeIn } from "@/components/animate/page-transition"
 import { DataTable } from "@/components/data-table"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Input } from "@/components/ui/input"
-import { rolesApi } from "@/lib/api"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { rolesApi, permissionsApi, type ApiPermission } from "@/lib/api"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 // Role type for table display
 interface Role {
-  id: string
+  id: number
   name: string
   members: number
+  permissions: Array<{
+    id: number
+    name: string
+  }>
 }
+
+// Form validation schema for Create Role
+const createRoleFormSchema = z.object({
+  name: z.string().min(2, "Role name must be at least 2 characters"),
+  permissions: z.array(z.number()).min(1, "Please select at least one permission"),
+})
+
+type CreateRoleFormValues = z.infer<typeof createRoleFormSchema>
+
+// Form validation schema for Edit Role (same as create)
+const editRoleFormSchema = createRoleFormSchema
+type EditRoleFormValues = CreateRoleFormValues
 
 // Mobile Card Component for individual role
 function MobileRoleCard({
@@ -28,7 +69,7 @@ function MobileRoleCard({
 }) {
   return (
     <div className="rounded-lg border bg-card p-4 shadow-sm">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded shrink-0">#{index + 1}</span>
           <Badge variant="outline" className="bg-primary/10 text-primary text-xs">
@@ -40,6 +81,18 @@ function MobileRoleCard({
           <span>{role.members} members</span>
         </div>
       </div>
+      {role.permissions.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-muted-foreground">Permissions:</p>
+          <div className="flex flex-wrap gap-1.5">
+            {role.permissions.map((perm) => (
+              <Badge key={perm.id} variant="secondary" className="text-xs">
+                {perm.name}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -48,6 +101,35 @@ export default function RolesPage() {
   const [roles, setRoles] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [mobileSearch, setMobileSearch] = useState("")
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null)
+  const [isPermissionsDialogOpen, setIsPermissionsDialogOpen] = useState(false)
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [editingRole, setEditingRole] = useState<Role | null>(null)
+  const [permissions, setPermissions] = useState<ApiPermission[]>([])
+  const [isLoadingPermissions, setIsLoadingPermissions] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const permissionsFetchedRef = useRef(false)
+  const editPermissionsFetchedRef = useRef(false)
+  const lastEditedRoleIdRef = useRef<number | null>(null)
+  const editFormSetRef = useRef<number | null>(null)
+  const { toast } = useToast()
+
+  const createRoleForm = useForm<CreateRoleFormValues>({
+    resolver: zodResolver(createRoleFormSchema),
+    defaultValues: {
+      name: "",
+      permissions: [],
+    },
+  })
+
+  const editRoleForm = useForm<EditRoleFormValues>({
+    resolver: zodResolver(editRoleFormSchema),
+    defaultValues: {
+      name: "",
+      permissions: [],
+    },
+  })
 
   // Filter roles for mobile view
   const filteredRoles = useMemo(() => {
@@ -57,35 +139,227 @@ export default function RolesPage() {
   }, [roles, mobileSearch])
 
   // Fetch roles from API
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        // Fetch both role list and role wise users
-        const [rolesResponse, usersResponse] = await Promise.all([
-          rolesApi.getRoles(),
-          rolesApi.getRoleWiseUsers(),
-        ])
+  const fetchRoles = async () => {
+    try {
+      setIsLoading(true)
+      // Fetch both role list and role wise users
+      const [rolesResponse, usersResponse] = await Promise.all([
+        rolesApi.getRoles(),
+        rolesApi.getRoleWiseUsers(),
+      ])
 
-        if (rolesResponse.status === "success") {
-          // Transform roles object to array
-          const rolesArray: Role[] = Object.entries(rolesResponse.roles).map(([id, name]) => ({
-            id,
-            name,
-            members: usersResponse.status === "success"
-              ? (usersResponse.roles[name]?.length || 0)
-              : 0,
-          }))
-          setRoles(rolesArray)
-        }
-      } catch (err) {
-        console.error("Failed to fetch roles:", err)
-      } finally {
-        setIsLoading(false)
+      const isRolesSuccess = rolesResponse.status === "success" || rolesResponse.status === "Success"
+      const isUsersSuccess = usersResponse.status === "success"
+      
+      if (isRolesSuccess) {
+        // Transform roles array to match our Role interface
+        const rolesArray: Role[] = rolesResponse.role.map((role) => ({
+          id: role.id,
+          name: role.name,
+          members: isUsersSuccess
+            ? (usersResponse.roles[role.name]?.length || 0)
+            : 0,
+          permissions: role.permissions.map((perm) => ({
+            id: perm.id,
+            name: perm.name,
+          })),
+        }))
+        setRoles(rolesArray)
       }
+    } catch (err) {
+      console.error("Failed to fetch roles:", err)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchRoles()
   }, [])
+
+  // Fetch permissions when create dialog opens
+  useEffect(() => {
+    if (isCreateDialogOpen && !permissionsFetchedRef.current) {
+      permissionsFetchedRef.current = true
+      setIsLoadingPermissions(true)
+      const fetchPermissions = async () => {
+        try {
+          const response = await permissionsApi.getPermissions()
+          if (response.status === "success" || response.status === "Success") {
+            setPermissions(response.permissions || [])
+          }
+        } catch (err) {
+          console.error("Failed to fetch permissions:", err)
+          toast({
+            title: "Error",
+            description: "Failed to load permissions",
+            variant: "destructive",
+          })
+          permissionsFetchedRef.current = false
+        } finally {
+          setIsLoadingPermissions(false)
+        }
+      }
+      fetchPermissions()
+    }
+    
+    // Reset ref when dialog closes
+    if (!isCreateDialogOpen) {
+      permissionsFetchedRef.current = false
+    }
+  }, [isCreateDialogOpen, toast])
+
+  // Fetch permissions when edit dialog opens
+  useEffect(() => {
+    if (isEditDialogOpen && editingRole) {
+      // Check if role changed
+      const roleChanged = lastEditedRoleIdRef.current !== editingRole.id
+      
+      if (roleChanged) {
+        editPermissionsFetchedRef.current = false
+        editFormSetRef.current = null
+        lastEditedRoleIdRef.current = editingRole.id
+      }
+      
+      // Fetch permissions if needed
+      if (!editPermissionsFetchedRef.current) {
+        editPermissionsFetchedRef.current = true
+        setIsLoadingPermissions(true)
+        const fetchPermissions = async () => {
+          try {
+            const response = await permissionsApi.getPermissions()
+            if (response.status === "success" || response.status === "Success") {
+              setPermissions(response.permissions || [])
+            }
+          } catch (err) {
+            console.error("Failed to fetch permissions:", err)
+            toast({
+              title: "Error",
+              description: "Failed to load permissions",
+              variant: "destructive",
+            })
+            editPermissionsFetchedRef.current = false
+          } finally {
+            setIsLoadingPermissions(false)
+          }
+        }
+        fetchPermissions()
+      }
+    }
+    
+    // Reset refs when dialog closes
+    if (!isEditDialogOpen) {
+      editPermissionsFetchedRef.current = false
+      lastEditedRoleIdRef.current = null
+      editFormSetRef.current = null
+    }
+  }, [isEditDialogOpen, editingRole])
+
+  // Set form values when permissions are loaded (only once per role)
+  useEffect(() => {
+    if (
+      isEditDialogOpen && 
+      editingRole && 
+      permissions.length > 0 && 
+      !isLoadingPermissions && 
+      editFormSetRef.current !== editingRole.id
+    ) {
+      editFormSetRef.current = editingRole.id
+      editRoleForm.reset({
+        name: editingRole.name,
+        permissions: editingRole.permissions.map((p) => p.id),
+      })
+    }
+  }, [isEditDialogOpen, editingRole?.id, permissions.length, isLoadingPermissions])
+
+  // Handle create role form submit
+  const onCreateRoleSubmit = async (values: CreateRoleFormValues) => {
+    setIsSubmitting(true)
+    try {
+      // Map permission IDs to permission names
+      const permissionNames = values.permissions
+        .map((permId) => {
+          const permission = permissions.find((p) => p.id === permId)
+          return permission?.name
+        })
+        .filter((name): name is string => Boolean(name))
+
+      const response = await rolesApi.createRole({
+        name: values.name,
+        permission: permissionNames, // API expects permission names (strings)
+      })
+
+      if (response.status === "success" || response.status === "Success") {
+        setIsCreateDialogOpen(false)
+        createRoleForm.reset()
+        toast({
+          title: "Role created successfully",
+          description: response.message || "Role has been created.",
+        })
+        fetchRoles() // Refresh roles list
+      } else {
+        throw new Error(response.message || "Failed to create role")
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to create role"
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Handle edit role form submit
+  const onEditRoleSubmit = async (values: EditRoleFormValues) => {
+    if (!editingRole) return
+
+    setIsSubmitting(true)
+    try {
+      // Map permission IDs to permission names
+      const permissionNames = values.permissions
+        .map((permId) => {
+          const permission = permissions.find((p) => p.id === permId)
+          return permission?.name
+        })
+        .filter((name): name is string => Boolean(name))
+
+      const response = await rolesApi.updateRole(editingRole.id, {
+        name: values.name,
+        permission: permissionNames, // API expects permission names (strings)
+      })
+
+      if (response.status === "success" || response.status === "Success") {
+        setIsEditDialogOpen(false)
+        setEditingRole(null)
+        editRoleForm.reset()
+        toast({
+          title: "Role updated successfully",
+          description: response.message || "Role has been updated.",
+        })
+        fetchRoles() // Refresh roles list
+      } else {
+        throw new Error(response.message || "Failed to update role")
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to update role"
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Open edit dialog with role data
+  const openEditDialog = (role: Role) => {
+    setEditingRole(role)
+    setIsEditDialogOpen(true)
+  }
 
   const columns = useMemo<ColumnDef<Role>[]>(
     () => [
@@ -114,6 +388,66 @@ export default function RolesPage() {
             <span>{row.original.members}</span>
           </div>
         ),
+      },
+      {
+        accessorKey: "permissions",
+        header: "Permissions",
+        cell: ({ row }) => {
+          const permissions = row.original.permissions
+          if (permissions.length === 0) {
+            return <span className="text-sm text-muted-foreground">No permissions</span>
+          }
+          return (
+            <div className="flex flex-wrap gap-1.5 max-w-md">
+              {permissions.slice(0, 3).map((perm) => (
+                <Badge key={perm.id} variant="secondary" className="text-xs">
+                  {perm.name}
+                </Badge>
+              ))}
+              {permissions.length > 3 && (
+                <Badge 
+                  variant="outline" 
+                  className="text-xs cursor-pointer hover:bg-accent transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedRole(row.original)
+                    setIsPermissionsDialogOpen(true)
+                  }}
+                >
+                  +{permissions.length - 3} more
+                </Badge>
+              )}
+            </div>
+          )
+        },
+      },
+      {
+        id: "actions",
+        header: "Action",
+        cell: ({ row }) => {
+          const role = row.original
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => openEditDialog(role)}>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-destructive focus:text-destructive"
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )
+        },
       },
     ],
     [],
@@ -158,9 +492,21 @@ export default function RolesPage() {
   return (
     <div className="space-y-4 sm:space-y-6">
       <FadeIn>
-        <div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
           <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">Roles</h1>
           <p className="text-sm text-muted-foreground sm:text-base">Define permissions and access levels for your team.</p>
+          </div>
+          <div>
+            <Button 
+              variant="default" 
+              className="w-full sm:w-auto"
+              onClick={() => setIsCreateDialogOpen(true)}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add New Role
+            </Button>
+          </div>
         </div>
       </FadeIn>
 
@@ -224,6 +570,240 @@ export default function RolesPage() {
           </div>
         </AnimateCardContent>
       </AnimateCard>
+
+      {/* Permissions Dialog */}
+      <Dialog open={isPermissionsDialogOpen} onOpenChange={setIsPermissionsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              Permissions for {selectedRole?.name}
+            </DialogTitle>
+          </DialogHeader>
+          {selectedRole && (
+            <div className="space-y-4 mt-4">
+              <p className="text-sm text-muted-foreground">
+                {selectedRole.permissions.length} permission{selectedRole.permissions.length !== 1 ? 's' : ''} assigned
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {selectedRole.permissions.map((perm) => (
+                  <Badge key={perm.id} variant="secondary" className="text-sm">
+                    {perm.name}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Create Role Dialog */}
+      <Dialog
+        open={isCreateDialogOpen}
+        onOpenChange={(open) => {
+          setIsCreateDialogOpen(open)
+          if (!open) createRoleForm.reset()
+        }}
+      >
+        <DialogContent className="w-[95vw] max-w-md sm:w-full">
+          <DialogHeader>
+            <DialogTitle>Create New Role</DialogTitle>
+            <DialogDescription>Add a new role with specific permissions.</DialogDescription>
+          </DialogHeader>
+          <Form {...createRoleForm}>
+            <form onSubmit={createRoleForm.handleSubmit(onCreateRoleSubmit)} className="space-y-4">
+              <FormField
+                control={createRoleForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Editor, Viewer" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={createRoleForm.control}
+                name="permissions"
+                render={() => (
+                  <FormItem>
+                    <div className="mb-4">
+                      <FormLabel>Permissions</FormLabel>
+                      {isLoadingPermissions && (
+                        <p className="text-sm text-muted-foreground">Loading permissions...</p>
+                      )}
+                    </div>
+                    {!isLoadingPermissions && permissions.length > 0 && (
+                      <ScrollArea className="h-[200px] w-full rounded-md border p-4">
+                        <div className="space-y-2">
+                          {permissions.map((permission) => (
+                            <FormField
+                              key={permission.id}
+                              control={createRoleForm.control}
+                              name="permissions"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    key={permission.id}
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(permission.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...field.value, permission.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) => value !== permission.id
+                                                )
+                                              )
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal cursor-pointer">
+                                      {permission.name}
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    )}
+                    {!isLoadingPermissions && permissions.length === 0 && (
+                      <p className="text-sm text-muted-foreground">No permissions available</p>
+                    )}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter className="flex-col gap-2 sm:flex-row">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setIsCreateDialogOpen(false)} 
+                  className="w-full sm:w-auto"
+                >
+                  Cancel
+                </Button>
+                <AnimateButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
+                  Create Role
+                </AnimateButton>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Role Dialog */}
+      <Dialog
+        open={isEditDialogOpen}
+        onOpenChange={(open) => {
+          setIsEditDialogOpen(open)
+          if (!open) {
+            setEditingRole(null)
+            editRoleForm.reset()
+          }
+        }}
+      >
+        <DialogContent className="w-[95vw] max-w-md sm:w-full">
+          <DialogHeader>
+            <DialogTitle>Edit Role</DialogTitle>
+            <DialogDescription>Update role information and permissions.</DialogDescription>
+          </DialogHeader>
+          <Form {...editRoleForm}>
+            <form onSubmit={editRoleForm.handleSubmit(onEditRoleSubmit)} className="space-y-4">
+              <FormField
+                control={editRoleForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Editor, Viewer" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={editRoleForm.control}
+                name="permissions"
+                render={() => (
+                  <FormItem>
+                    <div className="mb-4">
+                      <FormLabel>Permissions</FormLabel>
+                      {isLoadingPermissions && (
+                        <p className="text-sm text-muted-foreground">Loading permissions...</p>
+                      )}
+                    </div>
+                    {!isLoadingPermissions && permissions.length > 0 && (
+                      <ScrollArea className="h-[200px] w-full rounded-md border p-4">
+                        <div className="space-y-2">
+                          {permissions.map((permission) => (
+                            <FormField
+                              key={permission.id}
+                              control={editRoleForm.control}
+                              name="permissions"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    key={permission.id}
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(permission.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...field.value, permission.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) => value !== permission.id
+                                                )
+                                              )
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal cursor-pointer">
+                                      {permission.name}
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    )}
+                    {!isLoadingPermissions && permissions.length === 0 && (
+                      <p className="text-sm text-muted-foreground">No permissions available</p>
+                    )}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter className="flex-col gap-2 sm:flex-row">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setIsEditDialogOpen(false)} 
+                  className="w-full sm:w-auto"
+                >
+                  Cancel
+                </Button>
+                <AnimateButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
+                  Update Role
+                </AnimateButton>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

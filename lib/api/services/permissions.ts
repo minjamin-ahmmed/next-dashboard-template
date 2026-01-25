@@ -5,6 +5,6 @@ import type { PermissionListResponse } from "../types/permission"
 export const permissionsApi = {
   // Get permission list
   getPermissions: async (): Promise<PermissionListResponse> => {
-    return api.get<PermissionListResponse>("/permission_list")
+    return api.get<PermissionListResponse>("/permissions")
   },
 }

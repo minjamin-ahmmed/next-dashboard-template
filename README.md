@@ -1,3 +1,5 @@
+# Live URL: https://admin.webdynamo.com.au/auth/login/
+
 # Webdynamo Dashboard
 
 A modern, feature-rich admin dashboard application built with **Next.js 16**, **React 19**, and **TypeScript**. This dashboard provides a comprehensive management interface with authentication, user management, role-based access control, and real-time analytics.
@@ -140,7 +142,6 @@ export function MyComponent() {
 
 The application uses a custom API client for all backend communications:
 
-**Base URL**: `https://wa.acibd.com/api/webdynamo/api`
 
 **Features**:
 - Automatic JWT token injection in headers
@@ -290,8 +291,4 @@ This project is proprietary and confidential.
 
 For issues and questions, please contact the development team or check the project documentation.
 
----
 
-**Last Updated**: January 25, 2026
-**Framework**: Next.js 16 with React 19
-**Status**: Active Development

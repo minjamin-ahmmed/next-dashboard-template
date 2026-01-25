@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { type ColumnDef } from "@tanstack/react-table"
 import { Plus, MoreHorizontal, Pencil, Trash2, Calendar } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -47,20 +47,29 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
-import { usersApi, type ApiUser } from "@/lib/api"
+import { usersApi, rolesApi, type ApiUser } from "@/lib/api"
 
 // Form validation schema for Create
 const createFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  role: z.string().min(1, "Please select a role"),
 })
 
 // Form validation schema for Edit
 const editFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
+  role: z.string().min(1, "Please select a role"),
 })
 
 type CreateFormValues = z.infer<typeof createFormSchema>
@@ -156,6 +165,9 @@ export default function UsersPage() {
   const [deleteUserId, setDeleteUserId] = useState<number | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
   const [mobileSearch, setMobileSearch] = useState("")
+  const [roles, setRoles] = useState<Record<string, string>>({})
+  const [isLoadingRoles, setIsLoadingRoles] = useState(false)
+  const rolesFetchedRef = useRef(false)
   const { toast } = useToast()
 
   // Filter users for mobile view
@@ -175,16 +187,92 @@ export default function UsersPage() {
       name: "",
       email: "",
       password: "",
+      role: "",
     },
   })
+
+  // Fetch roles when create dialog opens (only once per dialog open)
+  useEffect(() => {
+    if (isCreateDialogOpen && !rolesFetchedRef.current) {
+      rolesFetchedRef.current = true
+      setIsLoadingRoles(true)
+      const fetchRoles = async () => {
+        try {
+          const response = await rolesApi.getRoleList()
+          if (response.status === "success") {
+            setRoles(response.roles)
+          }
+        } catch (err) {
+          console.error("Failed to fetch roles:", err)
+          toast({
+            title: "Error",
+            description: "Failed to load roles",
+            variant: "destructive",
+          })
+          rolesFetchedRef.current = false // Reset on error to allow retry
+        } finally {
+          setIsLoadingRoles(false)
+        }
+      }
+      fetchRoles()
+    }
+    
+    // Reset ref when dialog closes
+    if (!isCreateDialogOpen) {
+      rolesFetchedRef.current = false
+    }
+  }, [isCreateDialogOpen])
 
   const editForm = useForm<EditFormValues>({
     resolver: zodResolver(editFormSchema),
     defaultValues: {
       name: "",
       email: "",
+      role: "",
     },
   })
+
+  // Fetch roles when edit dialog opens
+  const editRolesFetchedRef = useRef(false)
+  useEffect(() => {
+    if (isEditDialogOpen && !editRolesFetchedRef.current) {
+      editRolesFetchedRef.current = true
+      setIsLoadingRoles(true)
+      const fetchRoles = async () => {
+        try {
+          const response = await rolesApi.getRoleList()
+          if (response.status === "success") {
+            setRoles(response.roles)
+          }
+        } catch (err) {
+          console.error("Failed to fetch roles:", err)
+          toast({
+            title: "Error",
+            description: "Failed to load roles",
+            variant: "destructive",
+          })
+          editRolesFetchedRef.current = false
+        } finally {
+          setIsLoadingRoles(false)
+        }
+      }
+      fetchRoles()
+    }
+    
+    // Reset ref when dialog closes
+    if (!isEditDialogOpen) {
+      editRolesFetchedRef.current = false
+    }
+  }, [isEditDialogOpen])
+
+  // Set role when roles are loaded and editingUser is set
+  useEffect(() => {
+    if (isEditDialogOpen && editingUser && Object.keys(roles).length > 0) {
+      const userRole = editingUser.roles[0]
+      const roleId = userRole ? userRole.id.toString() : ""
+      editForm.setValue("role", roleId)
+    }
+  }, [isEditDialogOpen, editingUser, roles, editForm])
 
   // Fetch users from API
   const fetchUsers = async () => {
@@ -208,11 +296,14 @@ export default function UsersPage() {
   const onCreateSubmit = async (values: CreateFormValues) => {
     setIsSubmitting(true)
     try {
+      // Convert role ID to role name
+      const roleName = roles[values.role] || values.role
+      
       const response = await usersApi.register({
         name: values.name,
         email: values.email,
         password: values.password,
-        roles: "user",
+        roles: roleName,
       })
 
       if (response.status === "success") {
@@ -244,10 +335,13 @@ export default function UsersPage() {
 
     setIsSubmitting(true)
     try {
+      // Convert role ID to role name
+      const roleName = roles[values.role] || values.role
+      
       const response = await usersApi.updateUser(editingUser.id, {
         name: values.name,
         email: values.email,
-        roles: editingUser.roles.map((r) => r.name.toLowerCase()),
+        roles: [roleName.toLowerCase()],
       })
 
       if (response.status === "success") {
@@ -309,6 +403,7 @@ export default function UsersPage() {
     editForm.reset({
       name: user.name,
       email: user.email,
+      role: "", // Will be set by useEffect after roles are loaded
     })
     setIsEditDialogOpen(true)
   }
@@ -507,6 +602,34 @@ export default function UsersPage() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={createForm.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isLoadingRoles}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder={isLoadingRoles ? "Loading roles..." : "Select a role"} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(roles).map(([id, name]) => (
+                          <SelectItem key={id} value={id}>
+                            {name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <DialogFooter className="flex-col gap-2 sm:flex-row">
                 <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)} className="w-full sm:w-auto">
                   Cancel
@@ -560,6 +683,34 @@ export default function UsersPage() {
                     <FormControl>
                       <Input type="email" placeholder="john@example.com" {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={editForm.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isLoadingRoles}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder={isLoadingRoles ? "Loading roles..." : "Select a role"} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(roles).map(([id, name]) => (
+                          <SelectItem key={id} value={id}>
+                            {name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

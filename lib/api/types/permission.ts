@@ -15,7 +15,7 @@ export interface PermissionItem {
 
 // Permission List Response
 export interface PermissionListResponse {
-  permission: PermissionItem[]
+  permissions: ApiPermission[]
   message: string
-  status: "success" | "error"
+  status: "Success" | "Error" | "success" | "error"
 }

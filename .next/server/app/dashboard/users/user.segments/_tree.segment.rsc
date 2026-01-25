@@ -1,7 +1,7 @@
-:HL["/_next/static/chunks/13ca4b3a560f8d27.css","style"]
-:HL["/_next/static/chunks/65c2c70b0b44a33d.css","style"]
-:HL["/_next/static/media/345c85a432359eed-s.p.eead68dd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/media/8e451580e5e95631-s.p.0e564e6e.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/media/9be384ea93fe3f49-s.p.ab26386e.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/media/f30fd2e485acf1bc-s.p.3d1b066d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"buildId":"ScvU8BHTJMUjn5q0KVXx6","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"dashboard","paramType":null,"paramKey":"dashboard","hasRuntimePrefetch":false,"slots":{"children":{"name":"users","paramType":null,"paramKey":"users","hasRuntimePrefetch":false,"slots":{"children":{"name":"user","paramType":null,"paramKey":"user","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+:HL["/_next/static/chunks/d0dd31608cde47a8.css","style"]
+:HL["/_next/static/chunks/ef4c58814e35a8e2.css","style"]
+:HL["/_next/static/media/23b7a97ae3b5c134-s.p.2902b61f.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/38df7484fe560b25-s.p.60f15535.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/99e609270109b47d-s.p.64b9304e.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/effe91970fc4db64-s.p.19510058.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"buildId":"GDWJefYpL4BY-ktgsSUnT","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"dashboard","paramType":null,"paramKey":"dashboard","hasRuntimePrefetch":false,"slots":{"children":{"name":"users","paramType":null,"paramKey":"users","hasRuntimePrefetch":false,"slots":{"children":{"name":"user","paramType":null,"paramKey":"user","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

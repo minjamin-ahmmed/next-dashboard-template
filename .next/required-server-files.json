@@ -100,7 +100,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "D:\\sheefat\\webdynamo-dashboard",
+    "outputFileTracingRoot": "D:\\Sheefat Projects\\Work\\Webdynamo-dashboard",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -158,7 +158,7 @@
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 11,
+      "cpus": 13,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -293,11 +293,11 @@
       "ignoreDuringBuilds": true
     },
     "turbopack": {
-      "root": "D:\\sheefat\\webdynamo-dashboard"
+      "root": "D:\\Sheefat Projects\\Work\\Webdynamo-dashboard"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "D:\\sheefat\\webdynamo-dashboard",
+  "appDir": "D:\\Sheefat Projects\\Work\\Webdynamo-dashboard",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

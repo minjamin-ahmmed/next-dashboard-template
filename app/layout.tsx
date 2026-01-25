@@ -1,16 +1,22 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Manrope } from "next/font/google"
+import { IBM_Plex_Mono, Libre_Baskerville } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { AuthProvider } from "@/providers/auth-provider"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 
-const manrope = Manrope({ 
-  subsets: ["latin"], 
-  weight: ["300", "400", "700"],
-  variable: "--font-manrope" 
+const libreBaskervillle = Libre_Baskerville({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400", "700"],
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500", "600"],
 })
 
 export const metadata: Metadata = {
@@ -49,7 +55,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${manrope.variable} font-sans antialiased`}>
+      <body
+        className={`${libreBaskervillle.variable} ${ibmPlexMono.variable} antialiased`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

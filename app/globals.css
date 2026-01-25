@@ -77,8 +77,9 @@
 
 @theme inline {
   /* Using Lato font */
-    --font-sans: var(--font-lato), "Lato", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
+  --font-sans: var(--font-serif), "Libre Baskerville", ui-serif, system-ui, serif;
+  --font-mono: var(--font-mono), "IBM Plex Mono", ui-monospace, SFMono-Regular,
+    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

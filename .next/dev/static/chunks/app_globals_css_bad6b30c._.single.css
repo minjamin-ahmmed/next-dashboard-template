@@ -1101,6 +1101,14 @@
     min-height: 60vh;
   }
 
+  .min-h-\[80px\] {
+    min-height: 80px;
+  }
+
+  .min-h-\[100px\] {
+    min-height: 100px;
+  }
+
   .min-h-\[400px\] {
     min-height: 400px;
   }

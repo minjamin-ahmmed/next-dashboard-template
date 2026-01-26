@@ -23,6 +23,7 @@ import {
   ChevronDown,
   Sparkles,
   Phone,
+  Globe,
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -73,6 +74,7 @@ const navItems: SidebarNavItem[] = [
     ],
   },
   { title: "Contacts", href: "/dashboard/contact", icon: Phone },
+  {title: "All Page SEO", href: "/dashboard/seo", icon: Globe},
   { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { title: "Settings", href: "/dashboard/settings", icon: Settings },
 ]
@@ -373,7 +375,7 @@ export function SidebarWrapper() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.1 }}
                   >
-                    Dashboard
+                    Web Dynamo
                   </motion.span>
                   <motion.span
                     className="text-[10px] font-medium text-sidebar-foreground/50 uppercase tracking-wider"

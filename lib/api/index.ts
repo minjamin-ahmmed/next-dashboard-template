@@ -19,6 +19,8 @@ export type {
   RegisterResponse,
   ContactMessage,
   ContactMessagesResponse,
+  ApiSeoPage,
+  SeoListResponse,
 } from "./types"
 
 // Re-export all services
@@ -28,4 +30,5 @@ export {
   rolesApi,
   permissionsApi,
   contactApi,
+  seoApi,
 } from "./services"

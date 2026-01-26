@@ -33,3 +33,8 @@ export type {
   ContactMessage,
   ContactMessagesResponse,
 } from "./contact"
+
+export type {
+  ApiSeoPage,
+  SeoListResponse,
+} from "./seo"

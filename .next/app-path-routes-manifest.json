@@ -6,6 +6,8 @@
   "/dashboard/contact/page": "/dashboard/contact",
   "/dashboard/logout/page": "/dashboard/logout",
   "/dashboard/page": "/dashboard",
+  "/dashboard/projects/page": "/dashboard/projects",
+  "/dashboard/seo/page": "/dashboard/seo",
   "/dashboard/settings/page": "/dashboard/settings",
   "/dashboard/users/page": "/dashboard/users",
   "/dashboard/users/permission/page": "/dashboard/users/permission",

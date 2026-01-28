@@ -6,6 +6,8 @@
   "/dashboard/contact/page": "app/dashboard/contact/page.js",
   "/dashboard/logout/page": "app/dashboard/logout/page.js",
   "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/projects/page": "app/dashboard/projects/page.js",
+  "/dashboard/seo/page": "app/dashboard/seo/page.js",
   "/dashboard/settings/page": "app/dashboard/settings/page.js",
   "/dashboard/users/page": "app/dashboard/users/page.js",
   "/dashboard/users/permission/page": "app/dashboard/users/permission/page.js",

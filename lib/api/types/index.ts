@@ -38,3 +38,9 @@ export type {
   ApiSeoPage,
   SeoListResponse,
 } from "./seo"
+
+export type {
+  ApiProject,
+  ProjectTechnology,
+  ProjectListResponse,
+} from "./project"

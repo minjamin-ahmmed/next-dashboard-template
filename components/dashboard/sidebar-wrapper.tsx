@@ -63,7 +63,11 @@ const springTransition: Transition = { type: "spring", stiffness: 240, damping: 
 
 const navItems: SidebarNavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: Home },
-  {
+  { title: "Contacts", href: "/dashboard/contact", icon: Phone },
+  {title: "All Page SEO", href: "/dashboard/seo", icon: Globe},
+  {title: "Projects", href: "/dashboard/projects", icon: Sparkles},
+  { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+    {
     title: "Users",
     href: "/dashboard/users",
     icon: Users,
@@ -73,9 +77,6 @@ const navItems: SidebarNavItem[] = [
       { title: "Permission", href: "/dashboard/users/permission", icon: ShieldPlus },
     ],
   },
-  { title: "Contacts", href: "/dashboard/contact", icon: Phone },
-  {title: "All Page SEO", href: "/dashboard/seo", icon: Globe},
-  { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { title: "Settings", href: "/dashboard/settings", icon: Settings },
 ]
 

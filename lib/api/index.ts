@@ -21,6 +21,9 @@ export type {
   ContactMessagesResponse,
   ApiSeoPage,
   SeoListResponse,
+  ApiProject,
+  ProjectTechnology,
+  ProjectListResponse,
 } from "./types"
 
 // Re-export all services
@@ -31,4 +34,5 @@ export {
   permissionsApi,
   contactApi,
   seoApi,
+  projectApi,
 } from "./services"
